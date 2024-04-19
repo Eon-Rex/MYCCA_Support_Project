@@ -1,0 +1,80 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CCAF</title>
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+</head>
+<body>*@
+
+    <div class="wrapper">
+        <div class="top-title">
+            <h2>My Profile</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <table class="table table-bordered table-margintop before_label_none profile_page">
+                    <tbody>
+                        @foreach (DataColumn col in Model.Columns)
+                        {
+                            <tr><td>@col.ColumnName</td>
+                        <td>@Model.Rows[0][@col.ColumnName]</td></tr>
+                              
+                        }
+
+                    </tbody>
+                </table>
+
+                @*<div class="col-lg-3 col-lg-3 col-sm-3 col-xs-12"></div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+                    <div class="left-side-matter">
+                        @foreach (DataColumn col in Model.Columns)
+                        {
+                            <p>@col.ColumnName<span>:</span></p>
+                        }
+                      
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+                    <div class="right-side-matter">
+                        @foreach (DataRow row in Model.Rows)
+                        {
+                            foreach (DataColumn col in Model.Columns)
+                            {
+                               
+                                <p>@row[col.ColumnName]</p>
+                            }
+                        }
+                      
+                    </div>
+
+                </div>*@
+
+
+            </div>
+        </div>
+
+        <div class="footer-first">
+        </div>
+
+    </div>
+
+@*</body>
+</html>*@

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://tempuri.org" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ACXWebPortal" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_WebPortalService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:import namespace="http://tempuri.org" location="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?wsdl=wsdl0" />
+  <wsdl:types />
+  <wsdl:binding name="NetTcpBinding_WebPortalService" type="i0:WebPortalService">
+    <wsp:PolicyReference URI="#NetTcpBinding_WebPortalService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="sendPVItemSelection">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendPVItemSelection" style="document" />
+      <wsdl:input name="WebPortalServiceSendPVItemSelectionRequest">
+        <soap12:header message="i0:WebPortalServiceSendPVItemSelectionRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendPVItemSelectionResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getItemOutOfStock">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/getItemOutOfStock" style="document" />
+      <wsdl:input name="WebPortalServiceGetItemOutOfStockRequest">
+        <soap12:header message="i0:WebPortalServiceGetItemOutOfStockRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceGetItemOutOfStockResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendOrder">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendOrder" style="document" />
+      <wsdl:input name="WebPortalServiceSendOrderRequest">
+        <soap12:header message="i0:WebPortalServiceSendOrderRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendOrderResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendPVAccountSelection">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendPVAccountSelection" style="document" />
+      <wsdl:input name="WebPortalServiceSendPVAccountSelectionRequest">
+        <soap12:header message="i0:WebPortalServiceSendPVAccountSelectionRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendPVAccountSelectionResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCustomerBalance">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/getCustomerBalance" style="document" />
+      <wsdl:input name="WebPortalServiceGetCustomerBalanceRequest">
+        <soap12:header message="i0:WebPortalServiceGetCustomerBalanceRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceGetCustomerBalanceResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPriceDisc">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/getPriceDisc" style="document" />
+      <wsdl:input name="WebPortalServiceGetPriceDiscRequest">
+        <soap12:header message="i0:WebPortalServiceGetPriceDiscRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceGetPriceDiscResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendPriceVariance">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendPriceVariance" style="document" />
+      <wsdl:input name="WebPortalServiceSendPriceVarianceRequest">
+        <soap12:header message="i0:WebPortalServiceSendPriceVarianceRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendPriceVarianceResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendPVEndDateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendPVEndDateUpdate" style="document" />
+      <wsdl:input name="WebPortalServiceSendPVEndDateUpdateRequest">
+        <soap12:header message="i0:WebPortalServiceSendPVEndDateUpdateRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendPVEndDateUpdateResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendPVItemPriceGroup">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendPVItemPriceGroup" style="document" />
+      <wsdl:input name="WebPortalServiceSendPVItemPriceGroupRequest">
+        <soap12:header message="i0:WebPortalServiceSendPVItemPriceGroupRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendPVItemPriceGroupResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendPVCustPriceGroup">
+      <soap12:operation soapAction="http://tempuri.org/WebPortalService/sendPVCustPriceGroup" style="document" />
+      <wsdl:input name="WebPortalServiceSendPVCustPriceGroupRequest">
+        <soap12:header message="i0:WebPortalServiceSendPVCustPriceGroupRequest_Headers" part="context" use="literal" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="WebPortalServiceSendPVCustPriceGroupResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="AifFaultFault">
+        <soap12:fault use="literal" name="AifFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ACXWebPortal">
+    <wsdl:port name="NetTcpBinding_WebPortalService" binding="tns:NetTcpBinding_WebPortalService">
+      <soap12:address location="net.tcp://10.226.17.25:8201/DynamicsAx/Services/ACXWebPortal" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://10.226.17.25:8201/DynamicsAx/Services/ACXWebPortal</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>sys_fjacxiom@aus.ccamatil.com</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

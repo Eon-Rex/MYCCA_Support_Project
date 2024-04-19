@@ -1,0 +1,411 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "ManageHierarchy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+
+        if (document.getElementById("FileUpload").files.length == 0) {
+            ShowMessage("Please Select File First !");
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+    $(document).ready(function () {
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("BindCustomerGroup", "Home")',
+
+                datatype: 'application/json',
+                contentType: 'application/json',
+                success: function (data) {
+                    $("#CustGroup").append(($('<option></option>').val("").html("Please Select")));
+                    $.each($.parseJSON(data), function (i, obj) {
+                        $("#CustGroup").append("<option value='" + obj.TYPE + "'>" + obj.DESCRIPTION + "</option>");
+
+                    })
+                    
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Whooaaa! Something went wrong..")
+
+                }
+
+                });
+        
+        //var mdl = $('#popdata').val();
+
+        //if (mdl.val == 0) {
+        //    $('.ordpopup').fadeIn();
+        //}
+        @Html.Raw(ViewBag.div)
+  });
+
+  function ViewManageHierarchy()
+  {
+      var usrtyp = $('#CustGroup option:selected').val();
+      if (usrtyp == "") {
+          ShowMessage("Please Select Customer Group First !");
+          return;
+      }
+      $('#loading').show();
+      $('.loader_overlay').fadeIn();
+      $("#tbodyoh").html('');
+      $.ajax({
+          type: 'POST',
+          url: '@Url.Action("ViewManageHierarchy", "Home")',
+          data: "{'CustGroup':'" + usrtyp + "'}",
+          datatype: 'application/json',
+          contentType: 'application/json',
+          success: function (data) {
+
+              var response = JSON.parse(data);
+
+              var table = $('#tbl').DataTable();
+              table.clear();
+              var finalDataSet = [];
+              var JSObject = $.each(response, function (index, Rowobj) {
+
+                  var singlerow = [];
+                  var JSObject2 = $.each(Rowobj, function (index, prop) {
+                      singlerow.push(prop);
+
+                  });
+                  finalDataSet.push($.makeArray(singlerow));
+              });
+              //console.log(finalDataSet);
+              
+              table.rows.add(finalDataSet).draw();
+              $("table").removeClass("responsive-table");
+              $("table").ResponsiveTable({
+                  breakpoint: 800
+              });
+              //debugger;
+              //var settings = $.extend({
+              //    breakpoint: 640
+              //}, options);
+              //var _this = $(this);
+              //Resize(_this);
+              $('#loading').hide();
+              $('.loader_overlay').fadeOut();
+          },
+
+          error: function (xhr, ajaxOptions, thrownError) {
+              $('#loading').hide();
+              $('.loader_overlay').fadeOut();
+             // alert("Whooaaa! Something went wrong..")
+
+          }
+
+      });
+
+  }
+
+</script>
+<script>
+    $(document).ready(function () {
+      var table= $('#tbl').DataTable({
+          //  responsive: true
+
+              scrollCollapse: true
+      , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+             , "language": {
+                 "search": ""
+                 , "sLengthMenu": "Display _MENU_ Records"
+                 , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                 , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+             }
+             , columnDefs: [{
+                 targets: 0,
+                 className: 'dt-body-center'
+             }
+             //, {
+             //    targets: -1,
+             //    className: 'dt-body-right'
+             //}
+             ]
+          ,dom: 'lBfrtip'
+          , buttons: [{
+              extend: 'excelHtml5'
+              //,customize: function (xlsx) {
+              //    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+              //    $('row c[r^="B"]', sheet).attr('s', '2'); // Cell Bold Text
+              //    $('row c[r*="2"]', sheet).attr('s', '25'); // jQuery selector to add a border
+              //    $('row c[r*="2"]', sheet).attr({'s':'20','s':'20,25'});  // jQuery selector to add a Color 
+              //}
+              , key: { key: 'x', altKey: true }
+              , className: 'exportbtncls'
+          }]
+        });
+      $('.dataTables_filter input').attr("placeholder", "Search");      
+        table.draw();
+    });
+</script>
+
+
+
+<style type="text/css">
+     .loader_overlay img{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        z-index:4;
+    }
+        .ordpopup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index:2;
+    display:none;
+    transition:all 0.5s ease-in-out 0s;
+    -webkit-transition:all 0.5s ease-in-out 0s;
+}
+.ordpopup .ordpopupinner{
+    background:#fff;
+    width:90%;
+    padding:20px 10px;
+    position:absolute;
+    top:40%;
+    left:50%;
+    border-radius:6px;
+    transform:translate(-50%,-50%);
+    border:1px solid #ccc;
+}
+.ordpopup .ordpopupinner .popupdata{
+    position:;
+    display:block;
+    width:100%;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height:450px;
+}
+.ordpopup .ordpopupinner .popupdata a{
+    position:absolute;
+    top:-19px;
+    right:-18px;
+    background:#f00;
+    color:#fff;
+    font-size:20px;
+    text-transform:uppercase;
+    border-radius:30px;
+    padding:4px 13px;
+    box-shadow:0px 0px 3px rgba(0,0,0,0.3);
+}
+    .for-right-icon-two img {
+        width: 32px;
+        height: 32px;
+        margin-top: 6px;
+    }
+
+    .view-catalog {
+        margin-top: 8px;
+    }
+
+    .first_left_side1.select-group-p p {
+        margin-top: 10px;
+    }
+
+    .first_left_side1.select_box_margin select {
+        margin-top: 10px;
+    }
+
+    button.alt-hie {
+        border-radius: 4px;
+        float: right;
+        background: #fff;
+        padding: 6px 17px 6px 17px;
+        margin-top: 4px;
+        font-size: 12px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        color: #e51635;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        -webkit-transition: all 0.4s ease-in-out 0s;
+        -moz-transition: all 0.4s ease-in-out 0s;
+        -o-transition: all 0.4s ease-in-out 0s;
+    }
+
+        button.alt-hie:hover {
+            border-color: #fff;
+            background: transparent;
+            color: #fff;
+        }
+
+    a.for-right-icon img {
+        margin-top: 0px;
+    }
+     table.dataTable.no-footer{
+        min-height:0 !important;
+    }
+
+    table.dataTable tbody td {
+        padding:4px 17px !important;
+        vertical-align:middle !important;
+    }
+
+    .table.order_table tr td:first-child{
+        text-align:left !important;
+    }
+</style>
+
+<div class="wrapper">
+
+    <div class="top-title">
+        <h2>Manage Hierarchy</h2>
+    </div>
+    <div class="loader_overlay" style="display:none">
+        <img src="~/AcxiomDesign/images/Loading-red.gif" style="display:block" id="loading" height="250px" width="250px" />
+    </div>
+    @using (Html.BeginForm("ManageHierarchy", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="manage-catalog">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="first_left_side1 mobileview">
+                            <p>Select Customer Group</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="first_left_side1 mobileviewselect">
+                            <select id="CustGroup" name="dropdown">
+                                
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8 mobileviewicon">
+                        <div class="view-catalog mobileviewcatelog">
+                            <div class="browse_btn">
+                                <input type="file" id="FileUpload" name="FileUpload" />
+                            </div>
+                        </div>
+
+                        <a href="~/ExcelTemplate/ManageHierarchy.xlsx" class="for-right-icon second-manage" title="Download Template"><img src="~/AcxiomDesign/images/download_hierachy.png"></a>
+                        <a href="javascript:void(0)" class="for-right-icon-two" onclick="ViewManageHierarchy()"><img src="~/AcxiomDesign/images/view-catalog.png"></a>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 mobileviewsubmitbtn">
+                        <button type="submit" name="Button" class="alt-hie alt-hie-top-margin mobileviewbtn mobile_style" 
+                                 onclick="return validateForm();" value="Submit">Upload File</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer-first">
+            </div>
+        </div>
+    }
+
+    <div class="container">
+        <div class="row for-row-margin">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-zero ">
+                <div class="left-side-bar for-order-margin for-hierarchy-margin">
+                    <div class="order_table_bg" style="overflow-x:auto;">
+                        <table class="table order_table" id="tbl">
+                            <thead>
+                                <tr>
+                                    @*<th>Customer Group</th>*@
+                                    <th>Customer Code</th>
+                                    <th>Approver Code</th>
+                                    <th>Escalation Code</th>
+                                    <th>Date From</th>
+                                    <th>Date To</th>
+                                     <th>Weekly Allowed Qty</th>
+                                    <th>Order Type</th>
+                                    
+                                    <th>Escalation HRS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyoh">
+                               
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.Raw(TempData["msg"])
+    </div>
+
+    <div class="footer-first">
+    </div>
+
+</div>
+@if (Model != null && Model.Rows.Count > 0)
+{
+    <script>
+        debugger;
+        $(document).ready(function () {
+            $('.ordpopup').fadeIn();
+        });
+    </script>
+}
+ 
+
+<div id="popupord" class="ordpopup">@*style="display:@((Model != null && Model.Rows.Count > 0) == true ? "" : "none")*@
+       
+    <div class="ordpopupinner">
+        <div class="popupdata">
+            <table id="tbl" class="table order_table hover cell-border order-column orderhrpopup">
+                <thead>
+                    @if (Model != null && Model.Rows.Count > 0)
+                    {
+                        <tr>
+                            @foreach (DataColumn col in Model.Columns)
+                            {
+                                <th>@col.ColumnName</th>
+                            }
+                        </tr>
+                    }
+                </thead>
+
+
+                <tbody id="tbdyohpu">
+
+
+                    @if (Model != null && Model.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in Model.Rows)
+                        {
+                            <tr>
+                                @foreach (DataColumn col in Model.Columns)
+                                {
+                                    <td><span class="customergrputleber">@col.ColumnName</span>@row[col.ColumnName]</td>
+                                    <input type="hidden" value="@row[col.ColumnName]" id="popdata" />
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <a class="" href="javascript:void(0);" onclick="dialogout()">X</a>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function dialogout() {
+        $('.ordpopup').fadeOut();
+    }
+</script>

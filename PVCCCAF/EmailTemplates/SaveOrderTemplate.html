@@ -1,0 +1,69 @@
+﻿<!--<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+</body>
+</html>-->
+<h4 style="text-align: center;"><strong>Order Received</strong></h4>
+<p><strong>{UserName}</strong></p>
+<p>{IntroLine}</p>
+<table style="height: 66px; width: 550px;">
+    <tbody>
+        <tr>
+            <td style="width: 261px; text-align: left;">Order Date :&nbsp;{OrderDate}</td>
+            <td style="width: 272px; text-align: right;">Order Number : {OrderNo}</td>
+        </tr>
+        <tr>
+            <td style="width: 261px; text-align: left;">Delivery Date :&nbsp;{DeliveryDate}</td>
+            <td style="width: 272px; text-align: right;">Order Amount :&nbsp;{OrderAmount}</td>
+        </tr>
+    </tbody>
+</table>
+<p>&nbsp;</p>
+<table style="width: 550px; height: 38px; border:1px">
+    <thead>
+        <tr>
+            <th style="width: 56px; text-align: left;">Sr. No.</th>
+            <th style="width: 278px; text-align: left;">Product Name</th>
+            <th style="width: 77px;">Quantity</th>
+            <th style="width: 109px; text-align: right;">Amount(VIP)</th>
+        </tr>
+    </thead>
+    {LineTable}
+    <!--<tbody>
+        <tr>
+            <td style="width: 56px;">&nbsp;</td>
+            <td style="width: 278px;">&nbsp;</td>
+            <td style="width: 77px;">&nbsp;</td>
+            <td style="width: 109px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 56px;">&nbsp;</td>
+            <td style="width: 278px;">&nbsp;</td>
+            <td style="width: 77px;">&nbsp;</td>
+            <td style="width: 109px;">&nbsp;</td>
+        </tr>
+    </tbody>-->
+</table>
+<p>For order enquiry : please contact the area sales representative below.</p>
+<table style="height: 66px; width: 550px;">
+    <tbody>
+        <tr>
+            <td style="width: 261px; text-align: left;">CCA Rep Name :&nbsp;{CCAREPNAME}</td>
+            <td style="width: 272px; text-align: right;">Email : {CCAEMAIL}</td>
+        </tr>
+        <tr>
+            <td style="width: 261px; text-align: left;">Contact No :&nbsp;{CCACONTACT}</td>
+            <td style="width: 272px; text-align: right;"></td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    Note: The prices and details in this order is subject to change if there are any legislative changes.
+    <!--The below mentioned entity will be used for this screen.-->
+</p>
+<p>Thank You.</p>

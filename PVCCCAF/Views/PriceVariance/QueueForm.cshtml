@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewBag.Title = "QueueForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="POST"  id="frmpricevariance" action="/PriceVariance/PVCDataView">
+    <input id="hdnpvcno" name="PVCNO" type="hidden" />
+    <input id="hdnpvstatus" name="Pvstatus" type="hidden" />
+</form>
+
+<form method="POST" id="frmpriceapproval" action="/PriceVariance/PriceVarianceApproval">
+    <input id="hdnapvcno" name="PVCNO" type="hidden" />
+    <input id="hdnapvstatus" name="Pvstatus" type="hidden" />
+</form>
+
+<style>
+    input[type="search"] {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+        float: right;
+        text-align: right;
+        padding-top: 0.25em;
+        font-size: 13px;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        clear: both;
+        float: left;
+        padding-top: 0.755em;
+        font-size: 13px;
+    }
+
+    .for-order-margin {
+        margin-top: -14px;
+    }
+
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+        font-size: 25px;
+    }
+    /*Sourav 17-03-2022 Start Code*/
+        #containr{
+            width:100%;
+           /* display:flex;
+            justify-content:center;*/
+
+        }
+    /*Sourav 17-03-2022 Start Code*/
+</style>
+
+<div class="loader_overlay">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" id="loading" height="250px" width="250px" />
+</div>
+<div class="wrapperbox">
+    <div class="top-title">
+        <h2>Queue Forms</h2>
+
+    </div>
+    <div class="for-top-border">
+        <div class="col">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                    <div class="first_left_side mobileview-col-xs-6" style="margin-left: 14px;">
+                        <select id="ddlStatus" class="searchable" style="width:250px">
+                            @*<option value="0">Status</option>*@
+                            <option value="1">PV Number</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-md-3 col-sm-3 col-xs-3 mobileview-col-xs-3">
+                    <div class="first_left_side for-float-right">
+                        <select id="dllPVCNO" class="searchable" style="width:250px" onchange="BinddataGrid(1,5)">
+                            @*<option value="4">Awaiting Approval</option>*@
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container" id="containr">
+    <div class="left-side-bar for-order-margin" style="width: 75%; margin-left:15px;">
+        <table id="tblformQueue" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table">
+            <thead>
+                <tr>
+                    <th>PV Number</th>
+                    <th>Submitted by</th>
+                    <th>Submitted Date/Time</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Approval Level</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<script>
+
+    $(BinddataGrid(0,4));
+
+   
+    function BinddataGrid(statusid, statusType)
+    {
+        debugger;
+        if (statusid == 0)//for Awaiting for Approval
+        {
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PriceVariance/GetPVCNOStatusWiseQueue?TYPE=' + statusType + '',
+                success: function (responsedata) {
+                   
+                    var table = $('#tblformQueue').DataTable();
+                    table.clear().draw();
+                    table.destroy();
+                    $('#tblformQueue tbody').empty();
+                    $('#dllPVCNO').empty();
+                    $('#dllPVCNO').attr('enabled', 'true').chosen("destroy");
+                    $('#dllPVCNO').append($("<option></option>").val('').html('Select an Option'));
+                    var jsondata = JSON.parse(responsedata);
+                    debugger;
+                    $.each(jsondata, function (index, obj)
+                    {
+                        var newRow = '<tr><td><a href="#" onclick="SendDataApproval(\'' + obj.PVCNO + '\',\'' + obj.STATUS + '\',\'' + obj.ISVIEWONLY + '\')">' + obj.PVCNO + '</a></td>';
+                        newRow = newRow + '<td>' + obj.USERNAME + '</td><td>' + obj.Submitteddateandtime + '</td><td>' + obj.Description + '</td><td>' + obj.STATUSDESC + '</td><td>' + obj.APPROVALLEVEL + '</td><td>' + obj.SourceType + '</td>';
+                        $('#tblformQueue tbody').append(newRow);
+                        $('#dllPVCNO').append($("<option></option>").val(obj.PVCNO).html(obj.PVCNO));
+                    });
+                    $('#dllPVCNO').chosen();
+                },
+                complete: function () {
+                    $('#tblformQueue').DataTable({
+                        scrollCollapse: true
+                        , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                        , "language": {
+                            "search": ""
+                            , "sLengthMenu": "Display _MENU_ Records"
+                            , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                            , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                        }
+                    });
+                    $('.dataTables_filter input').attr("placeholder", "Search");
+                    $('.dataTables_filter').attr("class", "manage_search"); // New changes add
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                    
+                }
+
+            });
+        }
+        else if (statusid == 1) //for PVC No Request
+        {
+
+            var selectpvcno = $("#dllPVCNO").val();
+            if (selectpvcno != "") {
+                $.ajax({
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: 'json',
+                    url: '/PriceVariance/GetPVCNOStatusWiseQueue?TYPE=' + statusType + '&PVCNO=' + selectpvcno + '',
+                    success: function (responsedata) {
+
+                        var table = $('#tblformQueue').DataTable();
+                        table.clear().draw();
+                        table.destroy();
+                        $('#tblformQueue tbody').empty();
+                        var jsondata = JSON.parse(responsedata);
+
+                        $.each(jsondata, function (index, obj) {
+                            var newRow = '<tr><td><a href="#" onclick="SendDataApproval(\'' + obj.PVCNO + '\',\'' + obj.STATUS + '\',\'' + obj.ISVIEWONLY + '\')">' + obj.PVCNO + '</a></td>';
+                            newRow = newRow + '<td>' + obj.USERNAME + '</td><td>' + obj.Submitteddateandtime + '</td><td>' + obj.Description + '</td><td>' + obj.STATUSDESC + '</td><td>' + obj.APPROVALLEVEL + '</td><td>' + obj.SourceType + '</td>';
+                        $('#tblformQueue tbody').append(newRow);
+
+                        });
+
+                    },
+                    complete: function () {
+                        $('#tblformQueue').DataTable({
+                            scrollCollapse: true
+                            , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                            , "language": {
+                                "search": ""
+                                , "sLengthMenu": "Display _MENU_ Records"
+                                , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                                , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                            }
+                        });
+                        $('.dataTables_filter input').attr("placeholder", "Search");
+                        $('.dataTables_filter').attr("class", "manage_search"); // New changes add
+                        $('#loading').hide();
+                        $('.loader_overlay').fadeOut();
+                    }
+
+                });
+            }
+            else
+            {
+                var table = $('#tblformQueue').DataTable();
+                table.clear().draw();
+                table.destroy();
+                $('#tblformQueue tbody').empty();
+
+            }
+        }
+    }
+
+    function SendDataApproval(pvno, pvstatus, ISVIEWONLY)
+    {
+        debugger;
+        if (ISVIEWONLY==1)
+        {
+            $("#hdnpvcno").val(pvno);
+            $("#hdnpvstatus").val(pvstatus);
+            let form = document.getElementById("frmpricevariance");
+            form.submit();
+
+        }
+        else
+        {
+            $("#hdnapvcno").val(pvno);
+            $("#hdnapvstatus").val(pvstatus);
+            let form = document.getElementById("frmpriceapproval");
+            form.submit();
+        }
+
+    }
+
+
+</script>
+
+

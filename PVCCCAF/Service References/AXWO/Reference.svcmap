@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="efcb5558-82d3-477b-a19a-1194192d51be" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ACXWebPortal.wsdl" MetadataType="Wsdl" ID="56b8f9cf-0026-4ebe-b6ba-079618487c2e" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?wsdl=wsdl0" />
+    <MetadataFile FileName="ACXWebPortal.xsd" MetadataType="Schema" ID="323ba211-0ed6-4297-b265-bc090d50bf89" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd0" />
+    <MetadataFile FileName="ACXWebPortal1.xsd" MetadataType="Schema" ID="107e662f-e005-4207-bad1-b83237eef4a4" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd1" />
+    <MetadataFile FileName="ACXWebPortal3.xsd" MetadataType="Schema" ID="648a0878-1d9c-4771-a642-9af506ca2eb1" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd2" />
+    <MetadataFile FileName="ACXWebPortal2.xsd" MetadataType="Schema" ID="6322c18e-9480-45af-b250-0c2177165595" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd3" />
+    <MetadataFile FileName="ACXWebPortal5.xsd" MetadataType="Schema" ID="de798ebc-d9a7-4e6b-97f4-366a7d33f168" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd4" />
+    <MetadataFile FileName="ACXWebPortal4.xsd" MetadataType="Schema" ID="8e5c08ab-65bd-42b5-992e-8bb8037d600f" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd5" />
+    <MetadataFile FileName="ACXWebPortal6.xsd" MetadataType="Schema" ID="1e1d9c1c-730a-441e-8e8b-55830ecb1abf" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd6" />
+    <MetadataFile FileName="ACXWebPortal7.xsd" MetadataType="Schema" ID="361aa662-e7cd-42df-a10d-09dd9d2d8cd6" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd7" />
+    <MetadataFile FileName="ACXWebPortal1.wsdl" MetadataType="Wsdl" ID="d42c3701-8f78-4c45-a4da-a292a1b8f2ca" SourceId="1" SourceUrl="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

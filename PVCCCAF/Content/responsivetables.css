@@ -1,0 +1,81 @@
+﻿@media (min-width: 320px) and (max-width:800px){
+
+table tr{
+    border:1px solid #b3b3b3;
+    padding:5px;
+}
+table th,table td{
+    padding:10px;
+    /*text-align:center;*/
+}
+table th{
+    text-transform:uppercase;
+    font-size:14px;
+    letter-spacing:1px;
+}
+table.responsive-table{
+    width:100%;
+    margin:0;
+    padding:0;
+    border-collapse:collapse;
+    border-spacing:0;
+    border:0;
+}
+table.responsive-table thead{
+    display:none;
+}
+table.responsive-table tr{
+    margin-bottom:10px;
+    display:block;
+    border-bottom:2px solid #b3b3b3;
+    padding:0;
+}
+table.responsive-table td{
+    display:block;
+    text-align:right;
+    font-size:13px;
+    min-height: 40px;
+}
+table.responsive-table td:last-child{
+    border-bottom:0;
+}
+table.responsive-table td:before{
+    content:attr(data-rt-label);
+    float:left;
+    text-transform:uppercase;
+    font-weight:normal;
+}
+/*# sourceMappingURL=responsivetables.css.map */
+
+table.table_changepass_word tr td:before{
+    display:none;
+}
+table.table_changepass_word tr td{
+    display:inherit;
+}
+table.table_changepass_word tr td input{
+        max-width: 100%;
+        width:100%;
+}
+table.newtable tr td:before{
+    display:none;
+}
+table.newtable tr td{
+    text-align:left;
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

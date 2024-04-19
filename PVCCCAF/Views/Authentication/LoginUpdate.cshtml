@@ -1,0 +1,121 @@
+﻿@model CCAF.Models.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="../AcxiomDesign/dashboardcss/style.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/fonts/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/animation/animate.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400" rel="stylesheet">
+    <link href="../AcxiomDesign/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/mdb/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../AcxiomDesign/mdb/css/mdb.min.css" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="../AcxiomDesign/bootstrap/js/jquery.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/animation.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/waypoints.min.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+    
+    <div id="ValidationSummary" style="display:none" class="validation-summary-errors">
+    </div>
+
+    <div class="wrapper">
+
+        <div class="demo-overlay">
+            <div class="demo-second">
+                <a href="javascript:void(0);" class="remove2"><img src="~/AcxiomDesign/images/exit.png" title="Close"></a>
+                <h2>Alert</h2>
+                <p><span id="lblErrorMessage"></span></p>
+                <div class="demo-down">
+                    <button class="cancel-demo">Cancel</button>
+                    <button class="cancel-demo">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="heading">
+            <img src="../AcxiomDesign/images/CCA_Logo_Black.png">
+        </div>
+        <div class="login">
+            <div class="login_card">
+                <h2>Sign In</h2>
+                <p>Enter Your Login Details</p>
+
+
+
+
+                <div class="submit-deatils">
+                    <div class="card">
+                        <div class="card-body px-lg-5 pt-0">
+                            @using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { enctype = "multipart/form-data", @class = "text-center" }))
+                            {
+
+
+                                <div class="field_group form-group login-field">
+                                    <i class="user fa fa-user"></i>
+                                    @*<input type="text" name="" ID="usrnm" placeholder="Username">*@
+                                    @Html.TextBoxFor(m => m.UserId, null, new { @placeholder= "UserName" })
+                                </div>
+                                            <div class="field_group form-group login-field">
+                                                <i class="user fa fa-unlock-alt"></i>
+                                                @*<input type="password" name="" ID="pswd" placeholder="Password">*@
+                                                @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+                                            </div>
+                                            <button type="submit" name="Submit" value="SignIn" class="sign-in-btn">Sign In</button>
+                                            <button type="submit" class="anchorlikebutton" value="ForgetPasword" name="Submit">Forget Password</button>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="footer-first">
+    </div>
+
+    <script type="text/javascript" src="~/AcxiomDesign/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/AcxiomDesign/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="~/AcxiomDesign/mdb/js/tether.min.js"></script>
+    @Html.Raw(ViewBag.div)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.demo-popup').on('click', function () {
+                $('.demo-overlay').fadeIn('500');
+            });
+            $('.remove2').on('click', function () {
+                $('.demo-overlay').fadeOut('500');
+            });
+            $('.cancel-demo').on('click', function () {
+                $('.demo-overlay').fadeOut('500');
+            });
+        });
+    </script>
+    <script src="js/Index.js"></script>
+</body>
+
+</html>

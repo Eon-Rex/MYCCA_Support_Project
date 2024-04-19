@@ -1,0 +1,7 @@
+Dont Click the SyncFromWM_To_Project file if you dont know what it is.
+Read the Following GuideLines
+------29Oct2018-------
+(1). it is Batch file that copies files and Folders from "C:\Web & Mobile\Latest Code\CCAF\CCAF Web"
+     to "C:\Projects\CCAF\Portal-UAT\CCAF Web" to keep the Project Folder Updated with Latest Code.
+(2). Dont Click the SyncFromWM_To_Project, it will automatically Trigger the Sync Process without any
+     Reconfirmation.

@@ -1,0 +1,217 @@
+﻿@model PVCCCAF.Models.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="../AcxiomDesign/images/fevicon_new.png" type="~/AcxiomDesign/images/fevicon_new.png" sizes="24x24">
+    <link href="../AcxiomDesign/dashboardcss/style.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/fonts/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/animation/animate.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400" rel="stylesheet">
+    <link href="../AcxiomDesign/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/mdb/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../AcxiomDesign/mdb/css/mdb.min.css" rel="stylesheet" type="text/css" media="all" />
+    @*<link href="../AcxiomDesign/mdb/sass/mdb.scss" rel="stylesheet" type="text/css" media="all" />*@
+
+    <script src="../AcxiomDesign/bootstrap/js/jquery.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/animation.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/waypoints.min.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/aes-js/3.1.1/index.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/aes-js/3.1.1/index.min.js.map"></script>
+
+    <script src="../CryptoJS v3.1.2/components/aes.js"></script>
+    <script src="../CryptoJS v3.1.2/rollups/aes.js"></script>
+
+</head>
+<body>
+
+    <style>
+        input:-webkit-autofill {
+            border:1px solid #ccc;
+            -webkit-box-shadow:inset 0 0 0px 9999px #fff !important;
+            padding-left:10px;
+            height:26px;
+            margin-bottom:30px;
+        }
+
+        input:focus,
+        input:-webkit-autofill:focus {
+            border-color: #66afe9;
+            -webkit-box-shadow: inset 0 0 0px 9999px white,
+                                0 0 8px rgba(102, 175, 233, 0.6);
+        }
+    </style>
+
+    <div id="ValidationSummary" style="display:none" class="validation-summary-errors">
+    </div>
+
+    <div class="wrapper">
+
+        <div class="demo-overlay">
+            <div class="demo-second">
+                <a href="javascript:void(0);" class="remove2"><img src="~/AcxiomDesign/images/exit.png" title="Close"></a>
+                <h2>Alert</h2>
+                <p><span id="lblErrorMessage"></span></p>
+                <div class="demo-down">
+                    <button class="cancel-demo">Cancel</button>
+                    <button class="cancel-demo">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="heading" >
+            <img src="../AcxiomDesign/images/new ccaf logo.png" style="height: 36px; width: 200px;">
+        </div>
+        <div class="login">
+            <h2>Sign In</h2>
+            <p>Enter Your Login Details</p>
+            <div class="submit-deatils">
+                <div class="card">
+                    <div class="card-body px-lg-5 pt-0">
+                        @using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { enctype = "multipart/form-data", @class = "text-center" }))
+                        {
+                            //@Html.ValidationSummary()
+                            <input type="hidden" name="_redirectval" value="@ViewBag.redirectval" />
+                            @Html.AntiForgeryToken()
+                            <div class=" md-form">
+                                @Html.TextBoxFor(m => m.UserId, null, new { @class = "form-control", @style = "border-bottom: 2px solid #fff;" })
+                                @Html.HiddenFor(m=>m.HDUserId)
+                                @Html.LabelFor(m => m.UserId, new { @class = "active" })
+                            </div>
+                            <div class="md-form">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "border-bottom: 2px solid #fff;", @maxlength = "64" })
+                                @Html.HiddenFor(m=>m.HDPassword)
+                                @Html.LabelFor(m => m.Password, new { @class = "active" })
+                            </div>
+                            <button type="submit" name="Submit" value="SignIn" class="sign-in-btn">Sign In</button>
+                            <button type="submit" class="anchorlikebutton" value="ForgetPasword" name="Submit">Forget Password</button>
+                            @Html.HiddenFor(m => m.hdrandomseed)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="footer-first">
+    </div>
+
+    @*<script type='text/javascript'>
+            function navigate(target) {
+                debugger;
+                var username = document.getElementById('UserId').value;
+                window.location.href = 'http://localhost:18123/Authentication/ForgetPassword' + '?Username=' + username;
+            }
+        </script>*@
+    <script type="text/javascript" src="~/AcxiomDesign/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/AcxiomDesign/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="~/AcxiomDesign/mdb/js/tether.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.demo-popup').on('click', function () {
+                $('.demo-overlay').fadeIn('500');
+            });
+            $('.remove2').on('click', function () {
+                $('.demo-overlay').fadeOut('500');
+            });
+            $('.cancel-demo').on('click', function () {
+                $('.demo-overlay').fadeOut('500');
+            });
+        });
+    </script>
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            $(".anchorlikebutton").on('click', function () {
+                var username = $('#UserId').val();
+                if (username == '') {
+                    var lblErrorMessage = 'Please provide valid Username.';
+                    $('#lblErrorMessage').text(lblErrorMessage)
+                    $('.demo-overlay').fadeIn('500');
+                    return false;
+                }
+                SubmitsEncry();
+            })
+            $(".sign-in-btn").on('click', function () {
+                var username = $('#UserId').val();
+                if (username == '') {
+                    var lblErrorMessage = 'Please provide valid Username.';
+                    $('#lblErrorMessage').text(lblErrorMessage)
+                    $('.demo-overlay').fadeIn('500');
+                    return false;
+                }
+                var Password = $('#Password').val();
+                if (Password == '') {
+                    var lblErrorMessage = 'Please provide valid Password.';
+                    $('#lblErrorMessage').text(lblErrorMessage)
+                    $('.demo-overlay').fadeIn('500');
+                    return false;
+                }
+                SubmitsEncry();
+            })
+
+            // $(".label").addClass("active");
+        });
+    </script>
+    <script type='text/javascript'>
+        function ShowMessage(msg) {
+            $('#lblErrorMessage').text(msg)
+            $('.demo-overlay').fadeIn('500');
+        };
+
+        function SubmitsEncry() {
+            var txtUserName = $('#UserId').val();
+            var txtpassword = $('#Password').val();
+
+            var key = CryptoJS.enc.Utf8.parse($('#hdrandomseed').val());//'8080808080808080'
+            var iv = CryptoJS.enc.Utf8.parse($('#hdrandomseed').val());//'8080808080808080'
+
+            var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(txtUserName), key,
+            {
+                keySize: 128 / 8,
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            //$('#HDUser').val(encryptedlogin);
+
+            var encryptedpassword = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(txtpassword), key,
+            {
+                keySize: 128 / 8,
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            $('#UserId').val('xxxxxxxx');
+            $('#Password').val('');
+            $('#HDUserId').val(encryptedlogin);
+            $('#HDPassword').val(encryptedpassword);
+            //$('#hdrandomseed').val(encryptedpassword);
+        }
+
+    </script>
+
+
+
+    @Html.Raw(ViewBag.div)
+    @Html.Raw(TempData["msg"])
+
+</body>
+</html>

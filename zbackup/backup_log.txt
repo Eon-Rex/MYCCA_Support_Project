@@ -1,0 +1,303 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:40 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\AcxiomDesign\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   0	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\
+	                   1	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\animation\
+	                   0	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\bootstrap\
+	                   8	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\bootstrap\css\
+	                   5	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\bootstrap\fonts\
+	                   6	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\bootstrap\js\
+	                   6	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\dashboardcss\
+	                   1	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\font-awesome\
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\font-awesome\css\
+	                   6	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\font-awesome\fonts\
+	                  14	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\font-awesome\less\
+	                  14	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\font-awesome\scss\
+	                  75	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\
+	                   1	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\font-awesome-4.7.0\
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\font-awesome-4.7.0\css\
+	                   6	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\font-awesome-4.7.0\fonts\
+	                  14	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\font-awesome-4.7.0\less\
+	                  14	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\font-awesome-4.7.0\scss\
+	                   4	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\fonts\TitilliumWeb-Bold\
+	                  46	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\images\
+	                   9	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\js\
+	                   4	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\js\Chosen\
+	                   3	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\
+	                   5	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\css\
+	                   0	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\font\
+	                  20	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\font\roboto\
+	                   0	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\img\
+	                   3	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\img\lightbox\
+	                   9	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\img\overlays\
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\img\svg\
+	                  11	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\js\
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\sass\
+	                   0	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\sass\mdb\
+	                  14	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\sass\mdb\free\
+	                   5	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\AcxiomDesign\mdb\sass\mdb\free\data\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :        35         0         0         0         0         0
+   Files :       312         0       312         0         0         0
+   Bytes :   26.37 m         0   26.37 m         0         0         0
+   Times :   0:00:01   0:00:00                       0:00:00   0:00:01
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:42 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\App_Code\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\App_Code\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   4	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\App_Code\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         4         0         4         0         0         0
+   Bytes :    36.8 k         0    36.8 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:42 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\App_Start\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\App_Start\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   5	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\App_Start\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         5         0         5         0         0         0
+   Bytes :    10.2 k         0    10.2 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:42 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\BussinessLayer\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\BussinessLayer\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   5	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\BussinessLayer\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         5         0         5         0         0         0
+   Bytes :    36.5 k         0    36.5 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:42 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Controllers\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\Controllers\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   7	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Controllers\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         7         0         7         0         0         0
+   Bytes :   159.2 k         0   159.2 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:42 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\DataAccessLayer\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\DataAccessLayer\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   1	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\DataAccessLayer\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         1         0         1         0         0         0
+   Bytes :     3.2 k         0     3.2 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:42 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\EmailTemplates\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\EmailTemplates\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\EmailTemplates\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         2         0         2         0         0         0
+   Bytes :     4.2 k         0     4.2 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:42 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:43 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\ExcelTemplate\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\ExcelTemplate\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\ExcelTemplate\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         2         0         2         0         0         0
+   Bytes :    18.0 k         0    18.0 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:43 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:43 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Models\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\Models\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                  10	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Models\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :        10         0        10         0         0         0
+   Bytes :    16.3 k         0    16.3 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:43 PM
+
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, October 29, 2018 6:39:43 PM
+   Source : C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\
+     Dest : C:\Projects\CCAF\Portal-UAT\CCAF Web\CCAF\Views\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\
+	                  12	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\Account\
+	                   7	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\Authentication\
+	                   4	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\Catalog\
+	                   1	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\GenerateOrder\
+	                  14	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\Home\
+	                   6	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\Manage\
+	                   0	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\MyCart\
+	                   1	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\RoleMenu\
+	                   4	C:\Web & Mobile\Latest Code\CCAF\CCAF Web\CCAF\Views\Shared\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :        10         0         0         0         0         0
+   Files :        51         0        51         0         0         0
+   Bytes :   329.7 k         0   329.7 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, October 29, 2018 6:39:43 PM
+

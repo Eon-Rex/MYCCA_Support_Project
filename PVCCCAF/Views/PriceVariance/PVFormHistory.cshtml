@@ -1,0 +1,471 @@
+﻿@using PVCCCAF.Models
+
+@{
+    ViewBag.Title = "PVFormHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    table.table.order_table tr:nth-child(odd) {
+        font-size: 11px;
+    }
+    table.table.order_table.for-center tr td:nth-child(9) {
+         text-align: left; 
+    }
+    table.table.order_table.for-center tr td:nth-child(10) {
+         text-align: left;
+    }
+    .table > tbody > tr > th, .table > tbody > tr > td {
+        padding: 2px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+    .wrapperbox {
+        background: #fff;
+        float: left;
+        width: 100%;
+        position: relative;
+    }
+
+    .view-catalog-PVC {
+        float: left;
+        margin-top: 8px;
+        margin-left: 8px;
+    }
+
+    .table.order_table tr td:last-child {
+        text-align: center !important;
+    }
+
+    .for_PVCNumSeq {
+        font-size: 15px;
+        color: #e51635;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .Actionbutton {
+        background: #fff;
+        color: #e51635;
+        display: inline-block;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        -webkit-transition: all 0.4s ease-in-out 0s;
+        -moz-transition: all 0.4s ease-in-out 0s;
+        -o-transition: all 0.4s ease-in-out 0s;
+        outline: none;
+        font-size: 13px;
+        border: 1px solid transparent;
+    }
+    .btnsearch_pvchistory {
+        background: #e51635;
+        color: #fff;
+        /*margin-right: 20px;*/
+        /*padding: 3px 16px 3px 16px;*/
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        float: right;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        font-size: 13px;
+        width:180px;
+        text-align:center;
+    }
+
+    .save_pvsearch {
+    background: #e51635;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 16px 3px 16px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    float: right;
+    border: 1px solid transparent;
+    transition: all 0.4s ease-in-out 0s;
+    outline: none;
+    margin-top: 6px;
+    margin-right: 24px;
+    font-size: 13px;
+    width:200px;
+
+}
+    .first_left_side {
+    margin-top: 10px !important;
+}
+
+    .first_left_side p {
+        font-size: .8rem;
+        font-family: 'Montserrat', sans-serif;
+        margin-bottom: 8px !important;
+    }
+
+        .first_left_side p:first-child {
+            margin-top: 5px !important;
+        }
+
+
+    .first_left_side select {
+        font-size: .8rem;
+        font-family: 'Montserrat', sans-serif;
+        float: left;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #e51635 !important;
+        outline: none;
+        width: 90%;
+        border: 0px;
+    }
+    .save_button button {
+    background: #e51635;
+    color: #fff;
+    display: inline-block;
+    /*padding: 3px 16px 3px 16px;*/
+    padding: 4px 26px 6px 23px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.4s ease-in-out 0s;
+    outline: none;
+    margin-top: 6px;
+    margin-right: 24px;
+    font-size: 13px;
+}
+    /*Sourav 16-03-2022 START*/
+    table.table.order_table.for-center tr td:nth-child(6) {
+        text-align: left !important ;
+    }
+    /*Sourav 16-03-2022 END*/
+
+    input[type="search"] {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+        float: right;
+        text-align: right;
+        padding-top: 0.25em;
+        font-size: 13px;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        clear: both;
+        float: left;
+        padding-top: 0.755em;
+        font-size: 13px;
+    }
+
+    .for-order-margin {
+        margin-top: -14px;
+    }
+
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+        font-size: 25px;
+    }
+    /*Sourav 17-03-2022 Start Code*/
+        #containr{
+            width:100%;
+           /* display:flex;
+            justify-content:center;*/
+
+        }
+    /*Sourav 17-03-2022 Start Code*/
+</style>
+
+<form method="POST" action="/PriceVariance/PVCDataView">
+    <input id="hdnpvcno" name="PVCNO" type="hidden" />
+    <input id="hdnpvstatus" name="Pvstatus" type="hidden" />
+    <input id="hdndataView" name="DataView" type="hidden" />
+    <input id="hdncreateduser" name="Createduser" type="hidden" />
+    
+</form>
+<div class="loader_overlay">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" id="loading" height="250px" width="250px" />
+</div>
+<div class="wrapperbox">
+    <div class="top-title">
+        <h2>Price Variance History</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-sm-6">
+                <p style="width:150px !important">@Html.DropDownList("HistoryStatusType", ViewBag.StatusTypeDropdown as SelectList, new { @class = "searchable", style = "width:105", @onchange = "HistoryTypechange();" })</p>
+            </div>
+
+            <div class="col-lg-2 col-sm-6">
+                @Html.DropDownList("HistoryStatus", Enumerable.Empty<SelectListItem>(), new { @id = "HistoryStatus", @class = "searchable", style = "width:150px" })
+            </div>
+
+            <div class="col-lg-1 col-sm-6">
+                <p style="width: 95px !important;padding-top: 3px;">@Html.Label("From Date")</p>
+            </div>
+
+            <div class="col-lg-2 col-sm-6">
+                <div class="first_right_side" style="margin-top: -15px; width: 150px;">
+                    <p>@Html.TextBox("FromDate", new { @class = "flatpickr flatpickr-input active", @id = "FromDate" })</p>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-sm-6">
+                <p style="width: 95px !important;padding-top: 3px;">@Html.Label("To Date")</p>
+            </div>
+
+            <div class="col-lg-2 col-sm-6">
+                <div class="first_right_side" style="margin-top: -15px; width: 150px;">
+                    <p>@Html.TextBox("ToDate", new { @class = "flatpickr flatpickr-input active", @id = "ToDate", style = "width:100px" })</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+                <div class="save_button"> <button type="button" class="for-top-border" onclick="Search_ButtonClick()">Search</button></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-sm-6" style="margin-left: -18px;">
+                <div class="save_button"> <button type="button" class="for-top-border" onclick="ExportToExcel()">Export to Excel</button></div>
+            </div>
+        </div>
+            
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-zero">
+                    <table id="pvhistorytbl" class="table order_table for-center cell-border orderview-mobile">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left;width: 85px;">PV Number</th>
+                                <th style="text-align:left; width:99px !important">Submitted By</th>
+                                <th style="text-align:left ;width: 105px !important">Submitted Date/Time</th>
+                                <th style="text-align:left; width: 90px !important">First  Approver</th>
+                                <th style="text-align:left ;width: 105px !important">Approved Date/Time</th>
+                                <th style="text-align:left; width: 95px !important">Second Approver</th>
+                                <th style="text-align:left ;width: 105px !important">Approved Date/Time</th>
+                                <th style="text-align:left; width: 95px !important">Third Approver</th>
+                                <th style="text-align:left; width: 105px;">Approved Date/Time</th>
+                                <th style="text-align:left; width: 90px;">Released By</th>
+                                <th style="text-align:left ;width: 105px !important">Released Date/Time</th>
+                                <th style="text-align:left; width: 90px;">Rejected By</th>
+                                <th style="text-align:left ;width: 100px !important">Rejected Date/Time</th>
+                                <th style="text-align:left ;width: 105px !important">Description</th>
+                                <th style="text-align:left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbdyoh"></tbody>
+                        <tfoot> </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>   
+</div>
+
+    <script type="text/javascript">
+
+        var check_in = flatpickr("#FromDate", { dateFormat: "d-M-Y", defaultDate: new Date() });
+        var check_out = flatpickr("#ToDate", { dateFormat: "d-M-Y", defaultDate: new Date() });
+
+        $('#FromDate').flatpickr().clear();
+        $('#ToDate').flatpickr().clear();
+
+        function Validate() {
+            var startDate = document.getElementById("FromDate").value;
+            var endDate = document.getElementById("ToDate").value;
+
+            if ((Date.parse(startDate) > Date.parse(endDate)))
+            {
+                ShowMessage('"To Date" should be greater than "From Date"!');
+                return false;
+            }
+            else {
+                return true;
+            }
+            
+        }
+
+        function Search_ButtonClick()
+        {
+            
+           
+            if (!Validate()) {
+                return;
+            }
+           
+            var tblStore = $('#tbdyoh');
+            var fromDate = $("#FromDate").val();
+            var toDate = $("#ToDate").val();
+            var FILTERID = $("#HistoryStatusType").val();
+            var FILTERVALUE = $("#HistoryStatus").val();
+            if (FILTERVALUE == "") {
+                ShowMessage("Please Select the Filter");
+                return false;
+            }
+            $('.loader_overlay, #loading').show();
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PriceVariance/GetPVHistory?FILTERID=' + FILTERID + '&FILTERVALUE=' + FILTERVALUE + '&FROMDATE=' + fromDate + '&TODATE=' + toDate + '',
+                success: function (response)
+                {
+                    var table = $('#pvhistorytbl').DataTable();
+                    table.clear().draw();
+                    table.destroy();
+                    $('#tbdyoh').empty();
+                    var Data = JSON.parse(response);
+                   
+                    $.each(Data, function (index, obj)
+                    {
+                        var newRow = '<tr><td>' + obj.PVCLINK + '</td><td>' + obj.USERNAME + '</td><td>' + obj.Submitteddateandtime + '</td><td>' + obj.firstApprover + '</td><td>' + obj.firstApproveddateandtime + '</td><td>' + obj.secondApprover + '</td><td>' + obj.SecondApproveddateandtime + '</td>';
+                        newRow = newRow + '<td>' + obj.thirdApprover + '</td><td>' + obj.thirdApproveddateandtime + '</td><td>' + obj.RELEASEDNAME + '</td><td>' + obj.RELEASEDDATETIME + '</td><td>' + obj.REJECTBY + '</td><td>' + obj.REJECTDATETIME + '</td><td>' + obj.Description + '</td>';
+                        newRow = newRow + '<td>' + obj.STATUSDESC+'</td></tr>';
+
+                        tblStore.append(newRow);
+                    });
+                },
+                complete: function () {
+                    $('#tbdyoh').show();
+                    $('#pvhistorytbl').DataTable({
+                        scrollCollapse: true
+                        , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                        , "language": {
+                            "search": ""
+                            , "sLengthMenu": "Display _MENU_ Records"
+                            , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                            , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                        }
+                    });
+                    $('.dataTables_filter input').attr("placeholder", "Search");
+                    $('.dataTables_filter').attr("class", "manage_search"); // New changes add
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                },
+                failure: function (text)
+                {
+                    $('#tbdyoh').empty();
+                    ShowMessage(text.responseText);
+                },
+                error: function (text, xhr, ajaxOptions, thrownError) {
+                   
+                    if (xhr.status === 401) {
+                        window.location.href = xhr.Data.LogOnUrl;
+                        return;
+                    }
+                    var table = $('#tbl').DataTable();
+                    table.clear().draw();
+                    var message;
+                    if (text.responseText == 'Empty') {
+                        message = 'No Records to Show in the Selected Date Range.';
+                    }
+                    else {
+                        message = 'No Records to Show in the Selected Date Range.';
+                    }
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                    ShowMessage(message);
+                }
+            });
+        }
+
+        function ExportToExcel()
+        {
+            
+            var tblStore = $('#tbdyoh');
+            var fromDate = $("#FromDate").val();
+            var toDate = $("#ToDate").val();
+            var FILTERID = $("#HistoryStatusType").val();
+            var FILTERVALUE = $("#HistoryStatus").val();
+            //$('.loader_overlay, #loading').show();
+            $.ajax(
+               {
+                   type: 'GET', 
+                   url: '/PriceVariance/GetPVHistoryExcel',
+                   datatype: 'application/json',
+                   contentType: 'application/json',
+                   data: { fromDate, toDate, FILTERID, FILTERVALUE },
+                   success: function (data) {
+                       window.location = '/PriceVariance/DownloadExcel';
+                   },
+                   error: function (msg) {
+                       alert("No Data Found");
+                   }
+               });
+
+        }
+        function SendDataApproval(pvno,pvstatus,createduser)
+        {
+            debugger;
+            var FILTERVALUE = $("#HistoryStatus").val();
+            var selectstatus = $("#HistoryStatusType").val();
+            if ((selectstatus == 1 || selectstatus == 2) && (pvstatus == 8 || pvstatus == 11))
+            {
+                FILTERVALUE = 6;
+            }
+           else  if (FILTERVALUE == 5 && (pvstatus == 8 || pvstatus == 11))// for all filter value
+            {
+                FILTERVALUE = 6;
+            }
+            else
+            {
+                FILTERVALUE = FILTERVALUE == 3 ? 6 : 0; // for 3 is released actual form 
+            }
+           
+            $("#hdnpvcno").val(pvno);
+            $("#hdnpvstatus").val(pvstatus);
+            $("#hdncreateduser").val(createduser);
+
+            $("#hdndataView").val(FILTERVALUE);
+            jQuery('form').submit();
+
+          
+        }
+
+        function HistoryTypechange() {
+           
+            var Type = $('#HistoryStatusType').val();
+            
+            if (Type != '') {
+                $('#HistoryStatus').attr('enabled', 'true').chosen("destroy");
+                $.ajax({
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: 'json',
+                    url: '/PriceVariance/GetPVType?Type=' + Type + '',
+                    success: function (responsedata) {
+                       
+
+                        var data = JSON.parse(responsedata);
+                        $("#HistoryStatus").empty();
+                        $('#HistoryStatus').attr('enabled', 'true').chosen("destroy");
+                        $('#HistoryStatus').append($("<option></option>").val('').html('Select an Option'));
+                        if (Type == "0") {
+                            $.each(data, function (index, obj) {
+                               
+
+                                $('#HistoryStatus').append($("<option></option>").val(obj.VALUE).html(obj.DESCRIPTION));
+
+                            });
+                        }
+                        else if (Type == "1") {
+                            $.each(data, function (index, obj) {
+                               
+                                $('#HistoryStatus').append($("<option></option>").val(obj.PVCNO).html(obj.PVCNO));
+
+                            });
+                        }
+                        else if (Type == "2") {
+                            $.each(data, function (index, obj) {
+                               
+                                $('#HistoryStatus').append($("<option></option>").val(obj.USERID).html(obj.USERNAME));
+
+                            });
+                        }                        
+                        $('#HistoryStatus').chosen();
+                    }
+                });
+            }
+        }
+    </script>
+ 

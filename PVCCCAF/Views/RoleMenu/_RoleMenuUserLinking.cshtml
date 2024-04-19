@@ -1,0 +1,487 @@
+﻿
+@{
+    ViewBag.Title = "RoleMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/AcxiomDesign/dashboardcss/drag-drop-style.css" rel="stylesheet" />
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/AcxiomDesign/js/drag-drop.js"></script>
+<script type="text/javascript" src="~/AcxiomDesign/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.slide-menu-ready').on('click', function () {
+            $('.slide_menu').addClass('Active');
+        });
+        $('.remove-class').on('click', function () {
+            $('.slide_menu').removeClass('Active');
+        });
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+    function ShowMessage(msg) {
+        $('#lblErrorMessage').text(msg)
+        $('.demo-overlay').fadeIn('500');
+
+    };
+
+    function myFunction() {
+
+        // var a = $('#txtSearch').val();
+
+
+        var input, filter, table, tr, td, i;
+
+        input = document.getElementById("txtSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("ulAnnouncement");
+        tr = table.getElementsByTagName("li");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i];
+
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function myFunction1() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("txtSearch1");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("ulAnnouncementu");
+        tr = table.getElementsByTagName("li");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        //sdebugger;
+        $.ajax({
+
+            type: 'POST', //HTTP POST Method
+            url: '@Url.Action("BindRole", "RoleMenu")',
+            datatype: 'application/json',
+            contentType: 'application/json',
+
+            success: function (data) {
+
+                $.each(data, function (index, optionData) {
+
+                    $("#Role").append("<option value='" + optionData.rolecode + "'>" + optionData.rolecode + "</option>");
+
+
+                });
+
+
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Whooaaa! Something went wrong..")
+            }
+        });
+    });
+
+    function GetMousemove(dragval) {
+        debugger;
+        var val1 = dragval.innerHTML;
+        var role = $('#Role option:selected').val();
+        var b = role.split('-');
+        var usr = b[0].trim();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '@Url.Action("GetDragValI", "RoleMenu")',
+            data: "{ 'dragitem': '" + val1 + "','rolec': '" + usr + "'}",
+            success: function (data) {
+                var msg = 'Menu Item ' + val1 + ' has been linked to role ' + role;
+                //debugger;
+                //ShowMessage(msg);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var msg = 'Menu Item ' + val1 + ' has been linked to role ' + role;
+                //debugger;
+               // ShowMessage(msg);
+            }
+        });
+    }
+
+    function GetMouseRemove(dragval) {
+
+        var val1 = dragval.innerHTML;
+        var role = $('#Role option:selected').val();
+        var b = role.split('-');
+        var usr = b[0].trim();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '@Url.Action("GetDragValR", "RoleMenu")',
+            data: "{ 'dragitem': '" + val1 + "','rolec': '" + usr + "'}",
+            success: function (data) {
+            }
+        });
+    }
+
+    //user add and remove
+
+    function GetMousemoveu(dragval) {
+        var val1 = dragval.innerHTML;
+        var b1 = val1.split('-');
+        var val1 = b1[0].trim();
+
+        var role = $('#Role option:selected').val();
+        var b = role.split('-');
+        var usr = b[0].trim();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '@Url.Action("GetDragValIu", "RoleMenu")',
+            data: "{ 'dragitem': '" + val1 + "','rolec': '" + usr + "'}",
+            success: function (data) {
+
+            }
+        });
+
+    }
+
+
+    function GetMouseRemoveu(dragval) {
+
+        var val1 = dragval.innerHTML;
+        var b1 = val1.split('-');
+        var val1 = b1[0].trim();
+
+        var role = $('#Role option:selected').val();
+        var b = role.split('-');
+        var usr = b[0].trim();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '@Url.Action("GetDragValRu", "RoleMenu")',
+            data: "{ 'dragitem': '" + val1 + "','rolec': '" + usr + "'}",
+            success: function (data) {
+            }
+        });
+
+    }
+
+
+
+    function RoleMenu() {
+        debugger;
+        var role = $('#Role option:selected').val();
+        var b = role.split('-');
+        var usr = b[0].trim();
+
+        if (usr == "Select Role") {
+            $("#ulAnnouncement").empty();
+            $("#ulAnnouncement1").empty();
+            $("#ulAnnouncementu").empty();
+            $("#ulAnnouncementu1").empty();
+        }
+        else {
+
+            $.ajax({
+                type: 'POST', //HTTP POST Method
+                url: '@Url.Action("LinkRole", "RoleMenu")',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: "{'usr':'" + usr + "'}",
+                success: function (data) {
+
+                    $("#ulAnnouncement1").empty();
+                    var tblStore = $("#ulAnnouncement1");
+                    $.each(data, function (index, Dropdata) {
+                        var liData = $("<li  class='draggable-item' id='li' onmouseup=GetMouseRemove(this)>" + Dropdata.name + "</li>");
+                        tblStore.append(liData);
+                    });
+                },
+                error: function (data) {
+                    alert("Whooaaa! Something went wrong..")
+                }
+            });
+            debugger;
+            $.ajax({
+
+                type: 'POST', //HTTP POST Method
+                url: '@Url.Action("NLinkRole", "RoleMenu")',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: "{'usr':'" + usr + "'}",
+                success: function (data) {
+
+                    $("#ulAnnouncement").empty();
+                    var tblStore = $("#ulAnnouncement");
+                    $.each(data, function (index, Dropdata) {
+                        var liData = $("<li  class='draggable-item' id='li' onmouseup=GetMousemove(this)>" + Dropdata.name + "</li>");
+                        tblStore.append(liData);
+                    });
+                },
+                error: function (data) {
+                    alert("Whooaaa! Something went wrong..")
+                }
+            });
+        }
+
+
+        //Userlinking master
+
+        var role = $('#Role option:selected').val();
+        var b = role.split('-');
+        var usr = b[0].trim();
+
+        if (usr == "Select Role") {
+            $("#ulAnnouncement").empty();
+            $("#ulAnnouncement1").empty();
+
+        }
+        else {
+
+            $.ajax({
+
+                type: 'POST', //HTTP POST Method
+                url: '@Url.Action("LinkRole1", "RoleMenu")',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: "{'usr':'" + usr + "'}",
+                success: function (data) {
+
+                    $("#ulAnnouncementu1").empty();
+                    var tblStore = $("#ulAnnouncementu1");
+                    $.each(data, function (index, Dropdata)
+                    {
+                        
+                        var liData = $("<li  class='draggable-item' id='li' onmouseup=GetMouseRemoveu(this)>" + Dropdata.name + "</li>");
+                        tblStore.append(liData);
+                    });
+
+
+                },
+                error: function (data) {
+
+                    alert("Whooaaa! Something went wrong..")
+
+                }
+
+            });
+
+            $.ajax({
+
+                type: 'POST', //HTTP POST Method
+                url: '@Url.Action("NLinkRole1", "RoleMenu")',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: "{'usr':'" + usr + "'}",
+                success: function (data) {
+
+                    $("#ulAnnouncementu").empty();
+                    var tblStore = $("#ulAnnouncementu");
+                    $.each(data, function (index, Dropdata)
+                    {
+                      
+                        var liData = $("<li  class='draggable-item' id='li' onmouseup=GetMousemoveu(this)>" + Dropdata.name + "</li>");
+                        tblStore.append(liData);
+                    });
+
+
+                },
+                error: function (data) {
+
+                    alert("Whooaaa! Something went wrong..")
+
+                }
+
+            });
+        }
+
+
+
+    }
+</script>
+
+<div class="wrapper">
+    <div class="demo-overlay">
+        <div class="demo-second">
+            <a href="javascript:void(0);" class="remove2">
+                <img src="~/AcxiomDesign/images/exit.png" title="Close">
+            </a>
+            <h2>Alert</h2>
+            <p><span id="lblErrorMessage"></span></p>
+            <div class="demo-down">
+                @*<button class="cancel-demo">Cancel</button>*@
+                <button class="cancel-demo">OK</button>  @*onclick='CallServerBlock();'*@
+            </div>
+        </div>
+    </div>
+    <div class="top-title"><h2>Role Menu Master</h2></div>
+    <div class="container">
+        @*<div class="row for-row-margin">*@
+
+        <select class="form-control form-control-style" id="Role" name="Role" onchange="RoleMenu()">
+            <option>Select Role</option>
+            @*<option>R01</option>
+                <option>R02</option>*@
+        </select>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 margin_bottom col_margin_for_bottom padding-zero">
+            <div class="left-section menu-border">
+                <div class="Rolemenu">
+                    <p class="role-toggle">Menu</p>
+                    @*<i class="fa fa-search"></i>*@
+                    <input type="text" id="txtSearch" class="form-control menu_search for-search Rolemenu" onkeyup="myFunction()" onkeydown="return (event.keyCode!=13);" placeholder="Search" title="Type in search" />
+                    <i class="fa fa-search for-styling"></i>
+                </div>
+                <div class="role-border">
+                    <div class="row margin-zero">
+                        <div class="column">
+                            <ul class="connected-sortable droppable-area1 common1" id="ulAnnouncement">
+                                @*<li class="draggable-item">item 1</li>
+                                    <li class="draggable-item">item 2</li>
+                                    <li class="draggable-item">item 3</li>
+                                    <li class="draggable-item">item 4</li>
+                                    <li class="draggable-item">item 5</li>
+                                    <li class="draggable-item">item 6</li>
+                                    <li class="draggable-item">item 7</li>*@
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <ul class="connected-sortable droppable-area2 common2" id="ulAnnouncement1">
+                                @*<li class="draggable-item">Item 8</li>
+                                    <li class="draggable-item">Item 9</li>
+                                    <li class="draggable-item">Item 10</li>
+                                    <li class="draggable-item">Item 11</li>
+                                    <li class="draggable-item">Item 12</li>
+                                    <li class="draggable-item">Item 13</li>
+                                    <li class="draggable-item">Item 14</li>*@
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 margin_bottom padding-zero">
+            <div class="left-section menu-border">
+                <div class="Rolemenu">
+                    <p class="role-toggle1">User</p>
+                    <input type="text" id="txtSearch1" class="form-control menu_search for-search Rolemenu" onkeyup="myFunction1()" onkeydown="return (event.keyCode!=13);" placeholder="Search" title="Type in search" />
+                    <i class="fa fa-search for-styling"></i>
+                </div>
+                <div class="role-border1" style="display:none;">
+                    <div class="row margin-zero">
+                        <div class="column">
+                            <ul class="connected-sortable droppable-area1 common1" id="ulAnnouncementu">
+                                @*<li class="draggable-item">item 1</li>
+                                    <li class="draggable-item">item 2</li>
+                                    <li class="draggable-item">item 3</li>
+                                    <li class="draggable-item">item 4</li>
+                                    <li class="draggable-item">item 5</li>
+                                    <li class="draggable-item">item 6</li>
+                                    <li class="draggable-item">item 7</li>*@
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <ul class="connected-sortable droppable-area2 common2" id="ulAnnouncementu1">
+                                @*<li class="draggable-item">Item 8</li>
+                                    <li class="draggable-item">Item 9</li>
+                                    <li class="draggable-item">Item 10</li>
+                                    <li class="draggable-item">Item 11</li>
+                                    <li class="draggable-item">Item 12</li>
+                                    <li class="draggable-item">Item 13</li>
+                                    <li class="draggable-item">Item 14</li>*@
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        @*</div>*@
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($(window).width() < 800) {
+            $('.main-menu li a').on('click', function () {
+                $(this).parent('li').siblings('li').find('.dropdown-data').slideUp();
+                $(this).parent('li').siblings('li').find('a').removeClass('Active');
+                $(this).next().slideToggle();
+                $(this).toggleClass('Active');
+            });
+        }
+        // Role Menu
+        $('.role-toggle').on('click', function () {
+            $('.role-border').slideToggle();
+            $(this).toggleClass('active');
+        });
+
+        // USER Role
+        $('.role-toggle1').on('click', function () {
+            $('.role-border1').slideToggle();
+            $(this).toggleClass('active');
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.role-togglenh').on('click', function () {
+            $(this).next().next().slideToggle();
+            $(this).toggleClass('active');
+            //$(this).next().slideToggle();
+        });
+
+        //Slim Scrollbar
+
+        (function ($) {
+            $(window).on("load", function () {
+                $("#content-1,#content-2,#content-3,#content-4").mCustomScrollbar({
+                    setHeight: 200,
+                    theme: "rounded"
+                });
+            });
+        })(jQuery);
+
+    });
+</script>
+
+
+

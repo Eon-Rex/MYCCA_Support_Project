@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tempuri.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd3" namespace="http://tempuri.org" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd4" namespace="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd6" namespace="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.AX.Framework.Services" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="WebPortalServiceSendPVItemSelectionRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVItemSelectionRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVItemSelectionRequest_Headers">
+    <wsdl:part xmlns:q1="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q1:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVItemSelectionResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVItemSelectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendPVItemSelection_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q2:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetItemOutOfStockRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceGetItemOutOfStockRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetItemOutOfStockRequest_Headers">
+    <wsdl:part xmlns:q3="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q3:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetItemOutOfStockResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceGetItemOutOfStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_getItemOutOfStock_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q4:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendOrderRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendOrderRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendOrderRequest_Headers">
+    <wsdl:part xmlns:q5="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q5:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendOrderResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendOrder_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q6:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVAccountSelectionRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVAccountSelectionRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVAccountSelectionRequest_Headers">
+    <wsdl:part xmlns:q7="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q7:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVAccountSelectionResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVAccountSelectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendPVAccountSelection_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q8:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetCustomerBalanceRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceGetCustomerBalanceRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetCustomerBalanceRequest_Headers">
+    <wsdl:part xmlns:q9="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q9:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetCustomerBalanceResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceGetCustomerBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_getCustomerBalance_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q10:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetPriceDiscRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceGetPriceDiscRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetPriceDiscRequest_Headers">
+    <wsdl:part xmlns:q11="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q11:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceGetPriceDiscResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceGetPriceDiscResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_getPriceDisc_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q12:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPriceVarianceRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPriceVarianceRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPriceVarianceRequest_Headers">
+    <wsdl:part xmlns:q13="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q13:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPriceVarianceResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPriceVarianceResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendPriceVariance_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q14:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVEndDateUpdateRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVEndDateUpdateRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVEndDateUpdateRequest_Headers">
+    <wsdl:part xmlns:q15="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q15:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVEndDateUpdateResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVEndDateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendPVEndDateUpdate_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q16:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVItemPriceGroupRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVItemPriceGroupRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVItemPriceGroupRequest_Headers">
+    <wsdl:part xmlns:q17="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q17:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVItemPriceGroupResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVItemPriceGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendPVItemPriceGroup_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q18:AifFault" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVCustPriceGroupRequest">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVCustPriceGroupRequest" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVCustPriceGroupRequest_Headers">
+    <wsdl:part xmlns:q19="http://schemas.microsoft.com/dynamics/2010/01/datacontracts" name="context" element="q19:CallContext" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalServiceSendPVCustPriceGroupResponse">
+    <wsdl:part name="parameters" element="tns:WebPortalServiceSendPVCustPriceGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="WebPortalService_sendPVCustPriceGroup_AifFaultFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.microsoft.com/dynamics/2008/01/documents/Fault" name="detail" element="q20:AifFault" />
+  </wsdl:message>
+  <wsdl:portType name="WebPortalService">
+    <wsdl:operation name="sendPVItemSelection">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendPVItemSelection" name="WebPortalServiceSendPVItemSelectionRequest" message="tns:WebPortalServiceSendPVItemSelectionRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendPVItemSelectionResponse" name="WebPortalServiceSendPVItemSelectionResponse" message="tns:WebPortalServiceSendPVItemSelectionResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendPVItemSelectionAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendPVItemSelection_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getItemOutOfStock">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/getItemOutOfStock" name="WebPortalServiceGetItemOutOfStockRequest" message="tns:WebPortalServiceGetItemOutOfStockRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/getItemOutOfStockResponse" name="WebPortalServiceGetItemOutOfStockResponse" message="tns:WebPortalServiceGetItemOutOfStockResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/getItemOutOfStockAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_getItemOutOfStock_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendOrder" name="WebPortalServiceSendOrderRequest" message="tns:WebPortalServiceSendOrderRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendOrderResponse" name="WebPortalServiceSendOrderResponse" message="tns:WebPortalServiceSendOrderResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendOrderAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendOrder_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendPVAccountSelection">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendPVAccountSelection" name="WebPortalServiceSendPVAccountSelectionRequest" message="tns:WebPortalServiceSendPVAccountSelectionRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendPVAccountSelectionResponse" name="WebPortalServiceSendPVAccountSelectionResponse" message="tns:WebPortalServiceSendPVAccountSelectionResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendPVAccountSelectionAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendPVAccountSelection_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getCustomerBalance">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/getCustomerBalance" name="WebPortalServiceGetCustomerBalanceRequest" message="tns:WebPortalServiceGetCustomerBalanceRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/getCustomerBalanceResponse" name="WebPortalServiceGetCustomerBalanceResponse" message="tns:WebPortalServiceGetCustomerBalanceResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/getCustomerBalanceAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_getCustomerBalance_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getPriceDisc">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/getPriceDisc" name="WebPortalServiceGetPriceDiscRequest" message="tns:WebPortalServiceGetPriceDiscRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/getPriceDiscResponse" name="WebPortalServiceGetPriceDiscResponse" message="tns:WebPortalServiceGetPriceDiscResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/getPriceDiscAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_getPriceDisc_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendPriceVariance">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendPriceVariance" name="WebPortalServiceSendPriceVarianceRequest" message="tns:WebPortalServiceSendPriceVarianceRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendPriceVarianceResponse" name="WebPortalServiceSendPriceVarianceResponse" message="tns:WebPortalServiceSendPriceVarianceResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendPriceVarianceAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendPriceVariance_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendPVEndDateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendPVEndDateUpdate" name="WebPortalServiceSendPVEndDateUpdateRequest" message="tns:WebPortalServiceSendPVEndDateUpdateRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendPVEndDateUpdateResponse" name="WebPortalServiceSendPVEndDateUpdateResponse" message="tns:WebPortalServiceSendPVEndDateUpdateResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendPVEndDateUpdateAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendPVEndDateUpdate_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendPVItemPriceGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendPVItemPriceGroup" name="WebPortalServiceSendPVItemPriceGroupRequest" message="tns:WebPortalServiceSendPVItemPriceGroupRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendPVItemPriceGroupResponse" name="WebPortalServiceSendPVItemPriceGroupResponse" message="tns:WebPortalServiceSendPVItemPriceGroupResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendPVItemPriceGroupAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendPVItemPriceGroup_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendPVCustPriceGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/WebPortalService/sendPVCustPriceGroup" name="WebPortalServiceSendPVCustPriceGroupRequest" message="tns:WebPortalServiceSendPVCustPriceGroupRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/WebPortalService/sendPVCustPriceGroupResponse" name="WebPortalServiceSendPVCustPriceGroupResponse" message="tns:WebPortalServiceSendPVCustPriceGroupResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/WebPortalService/sendPVCustPriceGroupAifFaultFault" name="AifFaultFault" message="tns:WebPortalService_sendPVCustPriceGroup_AifFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

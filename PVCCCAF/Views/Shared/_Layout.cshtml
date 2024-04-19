@@ -1,0 +1,281 @@
+﻿@using System.Data;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../AcxiomDesign/images/fevicon_new.png" type="~/AcxiomDesign/images/fevicon_new.png" sizes="24x24">
+
+
+    <link href="../Content/responsivetables.css" rel="stylesheet" />
+    <link href="../AcxiomDesign/dashboardcss/style.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/fonts/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/animation/animate.css" rel="stylesheet" type="text/css">
+    @*<link href="../AcxiomDesign/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">*@
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400" rel="stylesheet">
+    <link href="../AcxiomDesign/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../AcxiomDesign/mdb/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../AcxiomDesign/mdb/css/mdb.min.css" rel="stylesheet" type="text/css" media="all" />
+    @*<link href="../AcxiomDesign/mdb/sass/mdb.scss" rel="stylesheet" type="text/css" media="all" />*@
+
+    <script src="../AcxiomDesign/bootstrap/js/jquery.js"></script>
+
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/animation.js"></script>
+    <script type="text/javascript" src="../AcxiomDesign/bootstrap/js/waypoints.min.js"></script>
+    <script type="text/javascript" src="~/AcxiomDesign/js/input.js"></script>
+
+    <script src="../AcxiomDesign/js/BackButtonDisable.js"></script>
+    @*----------------For Unobtrusive Validation and Ajax-------------------*@
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    @*-----------------------For Searchable DropDown-----------------------------*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script src="../AcxiomDesign/js/Chosen/chosen.jquery.min.js"></script>
+    <link href="../AcxiomDesign/js/Chosen/chosen.min.css" rel="stylesheet" />
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js">
+
+        </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />*@
+
+    @*calender*@
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.1/flatpickr.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.1/flatpickr.min.css" rel="stylesheet" />*@
+
+    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.css>
+    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.css>
+    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css>
+
+
+    <script src=https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/weekSelect/weekSelect.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/rangePlugin.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/minMaxTimePlugin.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.slide-menu-ready').on('click', function () {
+                $('.slide_menu').addClass('Active');
+            });
+            $('.remove-class').on('click', function () {
+                $('.slide_menu').removeClass('Active');
+            });
+            $(".searchable").chosen();
+
+        });
+
+    </script>
+    <style type="text/css">
+        select.flatpickr-monthDropdown-months {
+            background: #e51635 !important;
+        }
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #e51635;
+            color: white;
+        }
+
+        .DraftOrderPopUp {
+            background: rgba(0,0,0,0.9);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 9;
+            display: none;
+        }
+
+        .DraftOrderPopUpNew {
+            background: rgba(0,0,0,0.9);
+            width: 125%;
+            height: 125%;
+            position: fixed;
+            z-index: 10;
+            display: none;
+        }
+    </style>
+    <title>
+        @ViewBag.Title
+    </title>
+
+</head>
+<body>
+    @*---------------Alert Box HTML-------------------------*@
+
+   
+
+  <div class='ConfirmBox'>
+    <div class="demo-overlay">
+      <div class="demo-second">
+        <a href="javascript:void(0);" class="remove2">
+          <img src="~/AcxiomDesign/images/exit.png" title="Close">
+        </a>
+        <h2>Alert</h2>
+        <p><span id="lblErrorMessage"></span></p>
+        <div class="demo-down">
+          @*<button class="cancel-demo cancelAction">Cancel</button>*@
+          <button class="cancel-demo doAction">OK</button>
+        </div>
+      </div>
+    </div>
+    <div class="DraftOrderPopUp">
+      <div class="demo-second">
+
+        <h2>Alert</h2>
+        <p><span id="lblMessage"></span></p>
+        <div class="demo-down">
+          <button id="btnyes" onclick="yesfunction()">Yes</button>
+          <button id="btnno" onclick="nofunction()">No</button>
+        </div>
+      </div>
+    </div>
+   
+    <div class="DraftOrderPopUpNew">
+      <div class="demo-second">
+        <h2>Confirm</h2>
+        <p><span id="lblMessage1"></span></p>
+        <div class="demo-down">
+          <button id="btnyesNew" onclick="yesfunction1()">Yes</button>
+          <button id="btnnoNew" onclick="nofunction1()">No</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+    <div class="body-content">
+
+        <div class="slide_menu">
+            <ul>
+
+                @if (Session["MENULIST"] != null)
+                {
+                    DataTable menulist = (DataTable)Session["MENULIST"];
+                    foreach (DataRow _row in menulist.Rows)
+                    {
+                        if (_row["ROLECODE"].Equals(Session["ROLECODE"].ToString()) && (_row["CONTROLCODE"].Equals("AC01")) && _row["DATAAREAID"].Equals(Session["DATAAREAID"].ToString()))
+                        {
+                            <li>@Html.ActionLink(_row["LINKTEXT"].ToString(), _row["ACTION"].ToString(), _row["CONTROLER"].ToString())</li>
+                        }
+                    }
+                }
+                @*<li><a href="../Home/EmailConfiguration">New Catalog</a></li>*@
+                @*<li>@Html.ActionLink("Home", "Dashboard","Home")</li>
+                    <li>@Html.ActionLink("My Profile", "MyProfile", "Home")</li>
+                    @if (Session["ROLECODE"] != null && Session["ROLECODE"].ToString() == "R01")
+                    {
+                        <li>@Html.ActionLink("User Management", "UserManagement", "Home")</li>
+                    }
+
+                    <li>@Html.ActionLink("Order History", "OrderHistory", "Home")</li>
+                    <li>@Html.ActionLink("Generate Order", "GenerateOrder", "Home")</li>
+                    <li>@Html.ActionLink("My Cart", "MyCart", "Home")</li>
+                    <li>@Html.ActionLink("Approve Order", "ApproveOrder", "Home")</li>
+                    <li>@Html.ActionLink("Catalog", "Catalog", "Home")</li>
+                    <li>@Html.ActionLink("Reset Password", "ResetPassword", "Authentication")</li>
+                    <li>@Html.ActionLink("Manage Catalog", "ManageCatalog", "Home")</li>
+                    <li>@Html.ActionLink("Manage Notification", "ManageNotification", "Home")</li>
+                    <li>@Html.ActionLink("Manage Hierarchy", "ManageHierarchy", "Home")</li>
+                    <li>@Html.ActionLink("Log Out", "Login", "Authentication")</li>*@
+                @*<li>@Html.ActionLink("Manage Alt Hierarchy", "ManageNotification", "Home")</li>*@
+                @*<li><a href="">My Profile</a></li>
+                    @*<li>@Html.ActionLink("Manage Alt Hierarchy", "ManageNotification", "Home")</li>*@
+                @*<li><a href="../AcxiomDesign/Home/order-history">Order History</a></li>
+                    <li><a href="">Generate Order</a></li>
+                    <li><a href="../AcxiomDesign/Home/mycart">My Cart</a></li>
+                    <li><a href="../AcxiomDesign/Home/approveorder">Approve Order</a></li>
+                    <li><a href="../AcxiomDesign/Home/catalog">Catalog</a></li>
+
+
+                    <li><a href="../AcxiomDesign/Home/manage-catalog">Manage Catalog</a></li>
+                    <li><a href="">Manage Notification</a></li>
+                    <li><a href="../AcxiomDesign/Home/manage-hierarchy">Manage Hierarchy</a></li>*@
+
+            </ul>
+            <a href="javascript:void(0);" class="remove-class"><img src="../AcxiomDesign/images/exit.png" title="Close"></a>
+        </div>
+        <div class="header-first">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-14 col-xs-12">
+                        <div class="inner-header">
+
+
+                            <a href="javascrip:void(0);" class="slide-menu-ready" title="Menu">Menu</a>
+                            <div class=""></div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="center-logo">
+                            @*center-logo*@
+                            <a href="/Home/Dashboard"> <img src="../AcxiomDesign/images/new ccaf logo.png" style="height: 36px; width: 200px;"></a>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="only-responsove-view">
+                            <a href="/Home/Dashboard"><img src="../AcxiomDesign/images/CCA_Logo_Black.png"></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+        <hr />
+
+    </div>
+    @*---------------Alert Box Script-------------------------*@
+
+    <script type="text/javascript" src="~/AcxiomDesign/Js/responsivetables.js"></script>
+    <script type="text/javascript">
+        $("table").ResponsiveTable({
+            breakpoint:800
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.demo-popup').on('click', function () {
+                $('.demo-overlay').fadeIn('500');
+            });
+            $('.remove2').on('click', function () {
+                $('.demo-overlay').fadeOut('500');
+            });
+            $('.cancel-demo').on('click', function () {
+                $('.demo-overlay').fadeOut('500');
+            });
+
+            $('.DraftOrderPopUp').hide();
+        });
+
+        function ShowMessage(msg) {
+            $('#lblErrorMessage').text(msg)
+            $('.demo-overlay').fadeIn('500');
+
+        };
+    </script>
+    <!-- DataTables Jquery-->
+    <link rel='stylesheet' type='text/css' href='~/DataTables/datatables.min.css' />
+    <script type='text/javascript' src='~/DataTables/datatables.min.js'></script>
+    <script type='text/javascript' src='~/DataTables/Buttons-1.5.2/js/dataTables.buttons.min.js'></script>
+    <link rel='stylesheet' type='text/css' href='~/DataTables/Buttons-1.5.2/css/buttons.dataTables.min.css' />
+    <script type='text/javascript' src='~/DataTables/Buttons-1.5.2/js/buttons.html5.min.js'></script>
+    <script type='text/javascript' src='~/DataTables/distExcelExport/jszip.min.js'></script>
+    <script type='text/javascript' src="~/DataTables/Responsive-2.2.2/js/responsive.jqueryui.js"></script>
+    <link href="~/DataTables/Responsive-2.2.2/css/responsive.dataTables.css" rel="stylesheet" />
+    <script src="~/DataTables/Sum.js" type="text/javascript"></script>
+</body>
+
+</html>

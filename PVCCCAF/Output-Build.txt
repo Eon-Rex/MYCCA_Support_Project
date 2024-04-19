@@ -1,0 +1,5 @@
+﻿Rebuild started...
+Solution is not saved. Please save your solution before managing NuGet packages.
+1>------ Rebuild All started: Project: PVCCCAF, Configuration: Debug Any CPU ------
+1>D:\ccaf\PVCCCAF\PVCCCAF.csproj(1261,5): error : This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is ..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props.
+========== Rebuild All: 0 succeeded, 1 failed, 0 skipped ==========

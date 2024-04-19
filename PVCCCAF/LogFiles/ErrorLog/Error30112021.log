@@ -1,0 +1,2 @@
+There was no endpoint listening at net.tcp://10.226.17.25:8201/DynamicsAx/Services/ACXWebPortal that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details.
+There was no endpoint listening at net.tcp://10.226.17.25:8201/DynamicsAx/Services/ACXWebPortal that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details.

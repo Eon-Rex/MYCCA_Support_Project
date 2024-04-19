@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table.dashboarddata tr th, .table.dashboarddata tr td {
+        text-align: left;
+    }
+</style>
+<form method="POST" id="frmpvview" action="/PriceVariance/PVCDataView">
+    <input id="hdnpvcviewno" name="PVCNO" type="hidden" />
+    <input id="hdnpvcviewstatus" name="Pvstatus" type="hidden" />
+</form>
+
+<form method="POST" id="frmpricevariance" action="/PriceVariance/PriceVariance">
+    <input id="hdnpvcno" name="PVCNO" type="hidden" />
+    <input id="hdnpvstatus" name="Pvstatus" type="hidden" />
+</form>
+
+<form method="POST" id="frmpriceapproval" action="/PriceVariance/PriceVarianceApproval">
+    <input id="hdnapvcno" name="PVCNO" type="hidden" />
+    <input id="hdnapvstatus" name="Pvstatus" type="hidden" />
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.loader_overlay, #loading').show();
+        var tblStore = $('#tbdyds');
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DashboardTab", "Home")',
+
+            datatype: 'application/json',
+            contentType: 'application/json',
+            success: function (data) {
+
+                var Data = JSON.parse(data);
+                $.each(Data, function (i, obj)
+                {
+                    var newRow = '<tr><td><a href="#" onclick="SendDataApproval(\'' + obj.PVCNO + '\',\'' + obj.STATUS + '\',\'' + obj.ISVIEWONLY + '\')">' + obj.PVCNO + '</a></td><<td>' + obj.USERNAME + '</td><td>' + obj.Submitteddateandtime + '</td><td>' + obj.Description + '</td><td>' + obj.STATUSDESC + '</td>';
+                    newRow = newRow + '<td>' + obj.APPROVALLEVEL + '</td><td>' + obj.SourceType + '</td>';
+                    tblStore.append(newRow);
+                });
+            },
+            complete: function () {
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //alert("Whooaaa! Something went wrong..")
+            }
+        });
+
+    });
+
+</script>
+
+<div class="loader_overlay">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" id="loading" height="250px" width="250px" />
+</div>
+
+<div class="wrapper">
+
+    <div class="container">
+        <div class="middle">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>
+                        @Session["NAME"]
+                    </h4>
+                    <span><strong>Customer Code:</strong>@Session["CUSTOMERCODE"] <strong>Address:</strong> @Session["ADDRESS"]</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row for-row-margin">
+            <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12 padding-zero padding-zero-dashboard">
+                <div class="left-side-bar for-top-margin" style="margin-left: 217px;">
+                    <div class="order_table_bg" style="overflow-x:auto;">
+                        <table class="table order_table dashboarddata">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">PVC No</th>
+                                    <th>Submitted By</th>
+                                    <th>Submitted Date</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Approval Level</th>
+                                    <th>Source</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbdyds">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    function SendDataApproval(pvno, pvstatus, ISVIEWONLY) {
+        
+        if (ISVIEWONLY==0) {
+            $("#hdnpvcno").val(pvno);
+            $("#hdnpvstatus").val(pvstatus);
+            let form = document.getElementById("frmpricevariance");
+            form.submit();
+
+        }
+        else if (ISVIEWONLY==2)
+        {
+            $("#hdnapvcno").val(pvno);
+            $("#hdnapvstatus").val(pvstatus);
+            let form = document.getElementById("frmpriceapproval");
+            form.submit();
+        }
+        else if (ISVIEWONLY==1)
+        {
+            $("#hdnpvcviewno").val(pvno);
+            $("#hdnpvcviewstatus").val(pvstatus);
+            let form = document.getElementById("frmpvview");
+            form.submit();
+        }
+
+    }
+
+</script>

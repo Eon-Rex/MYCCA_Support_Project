@@ -1,0 +1,362 @@
+﻿@model PVCCCAF.Models.ManageUserViewModel
+@{
+    ViewBag.Title = "UserManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .dataTables_scrollHead {
+        z-index: 1;
+    }
+
+    .table.dataTable.no-footer {
+        min-height: 0px !important;
+    }
+
+    .table.order_table.for-center.dataTable.no-footer.dtr-inline {
+        margin-top: 32px !important;
+    }
+
+  .loader_overlay{
+        position:fixed;
+        top:0;
+        left:0;
+        background:rgba(0, 0, 0, 0.5);
+        height:100%;
+        width:100%;
+        z-index:2;
+        display:none;
+    }
+    .loader_overlay img{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        z-index:4;
+    }
+</style>
+<div class="loader_overlay" style="display:block">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" style="display:block" id="loading" height="250px" width="250px"/>
+</div>
+<div class="wrapper">
+    @*<div class="demo-overlay">
+        <div class="demo-second">
+            <a href="javascript:void(0);" class="remove2">
+                <img src="~/AcxiomDesign/images/exit.png" title="Close">
+            </a>
+            <h2>Alert</h2>
+            <p><span id="lblErrorMessage"></span></p>
+            <div class="demo-down">
+                <button class="cancel-demo">Cancel</button>
+                <button class="cancel-demo">OK</button> 
+            </div>
+        </div>
+    </div>*@
+    <div class="top-title"><h2>User Management</h2></div>
+    <div class="container">
+        <div class="row for-row-margin">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-zero">
+                <div class="left-side-bar for-order-margin">
+                    <div class="order_table_bg" style="overflow-x:auto">
+                        <table id="tbl" class="table order_table for-center">
+                            <thead>
+                                <tr>
+                                    <th>USER ID</th>
+                                    <th>NAME</th>
+                                    <th>ROLE</th>
+                                    <th>MOBILE</th>
+                                    <th>EMAIL</th>
+                                    <th>AUTH MODE</th>
+                                    <th>CREATE</th>
+                                    <th>BLOCKED</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbdyao">
+                            </tbody>
+                           
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-first">
+    </div>
+
+</div>
+
+<div id="result" style="display: none; height:300px;width:50%;"></div>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $('.demo-popup').on('click', function () {
+            $('.demo-overlay').fadeIn('500');
+        });
+        $('.remove2').on('click', function () {
+            $('.demo-overlay').fadeOut('500');
+        });
+        $('.cancel-demo').on('click', function () {
+            $('.demo-overlay').fadeOut('500');
+        });
+    });
+</script>
+
+<script type='text/javascript'>
+    function ShowMessage(msg) {
+        $('#lblErrorMessage').text(msg)
+        $('.demo-overlay').fadeIn('500');
+
+    };</script>*@
+
+<script type='text/javascript'>
+    function ConfirmBlock(user, block, status) {
+        var msg = 'Are You Sure want to ' + block + ' User ' + user;
+        ShowMessage(msg);
+        return false;
+    };
+
+</script>
+@*hide loading screen*@
+
+
+<script type='text/javascript'>
+    function CallServerBlock(user, code, id1, linkid) {
+       
+        var id = '#' + linkid;
+        var action = $(id).text();
+        var crid = linkid.split('BLOCKED');
+        var Createbtnid = '#' + crid[0] + 'CREATEBTN';
+        if ($(Createbtnid).text() == 'CREATE') {
+            return;
+        }
+
+        var jsdialog = confirm("Are you Sure want to " + action + " User " + user + "");
+        if (jsdialog)
+            ShowBlockClickStatus(linkid, user, 'SUCCESS',id1,code);
+           }
+    function ShowBlockClickStatus(linkid, user, status,id,code) {
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("BlockUser", "Home")',
+            data: "{'id':'" + id + "','code':'" + code + "','userid':'" + user + "'}",
+            datatype: 'application/json',
+            contentType: 'application/json',
+            success: function (data) {
+                var id = '#' + linkid;
+                var fromblock = $(id).text();
+                var toblock = fromblock == 'BLOCK' ? 'UNBLOCK' : 'BLOCK';
+                var msg;
+                if (status == 'SUCCESS') {
+                    msg = user + ' User has been ' + fromblock + ' Succesfully.';
+                    var id = '#' + linkid;
+                    $(id).text(toblock);
+                }
+                else if (status == 'FAILURE') {
+                    msg = user + ' User has not been ' + fromblock + ' Failed.';
+                    $(id).text(fromblock);
+                    //toblock = fromblock;
+                }
+                ShowMessage(msg);
+            },
+            failure: function (text) {
+                ShowMessage(text.responseText);
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+            },
+            error: function (xhr, ajaxOptions, thrownError, text) {
+                ShowMessage(text.responseText);
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+            }
+
+        });
+     
+    };
+    function CallServerAMChange(code, user, FromAuthMode,SelectID) {
+       
+        var Createbtnid = '#' + SelectID + 'CREATEBTN';
+        if ($(Createbtnid).text() == 'CREATE') {
+            return;
+        }
+        code = $(Createbtnid).text();
+        var id = '#' + SelectID + 'SELECT';
+        var _ToAuthMode = $(id).val(); 
+        var toAuthMode = _ToAuthMode;
+        var _FromAuthMode = _ToAuthMode == 'AD' ? 'DB' : 'AD';
+        var jsdialog = confirm("Are you Sure want to Change Authentication Mode from " + _FromAuthMode + " to " + toAuthMode + " for User " + user + "");
+        if (jsdialog) {
+  
+            ChangeAuthenticationMode(code, user, SelectID);
+        }
+        else {
+            var id = '#' + SelectID + 'SELECT';
+            $(id).val(_FromAuthMode);
+            return false;
+        }
+    }
+    function ResetAMDropDown(FromAuthMode, SelectID) {
+        var id = '#' + SelectID + 'SELECT';
+        $(id).val(FromAuthMode);
+    }
+    function ChangeAuthenticationMode(code, user, SelectID) {
+       
+        var Createbtnid = '#' + SelectID + 'CREATEBTN';
+        if ($(Createbtnid).text() == 'CREATE') {
+            return;
+        }
+        var id = '#' + SelectID + 'SELECT';
+        var toAuthMode = $(id).val();
+        var _FromAuthMode = toAuthMode == 'AD' ? 'DB' : 'AD';
+        //var toAuthMode = FromAuthMode == 'AD' ? 'DB' : 'AD';
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            dataType: 'text',
+            url: 'ChangeAuthMode?code=' + code + '&userid=' + user + '&AuthorizationMode=' + toAuthMode,
+            success: function (text) {
+                if (text == 'Success') {
+                    ShowMessage('Authentication Mode for the user : ' + user + ' has been changed from Authentication Mode ' + _FromAuthMode + ' to ' + toAuthMode);
+                }
+                else //if (text == 'Failure') {
+                {
+                  
+                    ShowMessage(text);
+                    ResetAMDropDown(_FromAuthMode, SelectID);
+                }
+            },
+            failure: function (text) {
+                //alert(text.responseText);
+                ShowMessage('Authentication Mode for the user : ' + user + ' cant be changed,' + text.responseText);
+                ResetAMDropDown(_FromAuthMode, SelectID);
+            },
+            error: function (text) {
+                //alert(text.responseText);
+                ShowMessage('Authentication Mode for the user : ' + user + ' cant be changed,' + text.responseText);
+                ResetAMDropDown(_FromAuthMode, SelectID);
+            }
+        });
+    }
+    function CreateUserAjax(code, userid, UserName, address, contact, Email, Usertype, RoleCode, AuthorizationMode, id)
+    {
+        
+        $('.loader_overlay, #loading').show();
+        var Createbtnid = '#' + id + 'CREATEBTN';
+      
+        if ($(Createbtnid).text() == 'EXISTING') {
+            ShowMessage('The User Already Exists.');
+            $('.loader_overlay, #loading').hide();
+            return;
+        }
+        var SelectID = id;
+        
+        var ids = '#' + SelectID + 'SELECT';
+        var toAuthMode = $(ids).val();
+        var _FromAuthMode = toAuthMode == 'AD' ? 'DB' : 'AD';
+       
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            dataType: 'text',
+            url: 'Create?code=' + code + '&userid=' + userid + '&UserName=' + UserName + '&address=' + address + '&contact=' + contact + '&Email=' + Email + '&Usertype=' + Usertype + '&RoleCode=' + RoleCode + '&AuthorizationMode=' + toAuthMode,
+            success: function (text) {
+                if (text == 'Success')
+                {
+                 
+                    ShowMessage('User Code: ' + userid + '  User Created Successfuly!');
+                    $(Createbtnid).text('EXISTING');
+                }
+                else //if (text == 'Failure') {
+                {
+                    ShowMessage(text);
+                    ResetAMDropDown(_FromAuthMode, SelectID);
+                }
+            },
+            failure: function (text) {
+                //alert(text.responseText);
+                ShowMessage(text.responseText);
+                ResetAMDropDown(_FromAuthMode, SelectID);
+            },
+            error: function (text) {
+                //alert(text.responseText);
+                ShowMessage(text.responseText);
+                ResetAMDropDown(_FromAuthMode, SelectID);
+            }
+        });
+        $('.loader_overlay, #loading').hide();
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        GetUser();
+        function GetUser() {
+            var tblStore = $('#tbdyao');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetUserManagement", "Home")',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                success: function (data) {
+
+                    var rowNo=0;
+                    var on = JSON.parse(data);
+                    $.each(on, function (i, obj) {
+                        rowNo++;
+
+                        if (obj['AuthorizationMode'] == "AD")
+                            trData = $('<tr><td><span class="mobile-before-label">USER ID</span>' + obj['USER CODE'] + '</td><td><span class="mobile-before-label">NAME</span>' + obj['NAME'] + '</td><td><span class="mobile-before-label">ROLE</span>' + obj['ROLENAME'] + '</td><td><span class="mobile-before-label">MOBILE</span>' + obj['CONTACT NO'] + '</td><td><span class="mobile-before-label">EMAIL</span>' + obj['EMAIL ID'] + '</td><td><span class="mobile-before-label">AUTH MODE</span> <select onchange="CallServerAMChange(\'' + obj['CREATE'] + '\',\'' + obj['USER CODE'] + '\',\'' + obj['AuthorizationMode'] + '\',\'' + rowNo + '\')" id="' + rowNo + 'SELECT"><option value="AD" id="ad" selected>AD</option><option value="DB" id="db">DB</option>' + obj['AuthorizationMode'] + '</select></td><td><span class="mobile-before-label">CREATE</span><a href="javascript:void(0)" onclick="CreateUserAjax(\'' + obj['CREATE'] + '\',\'' + obj['USER CODE'] + '\',\'\',\'' + obj['ADDRESS'] + '\',\'' + obj['CONTACT NO'] + '\',\'' + obj['EMAIL ID'] + '\',\'' + obj['USERTYPE'] + '\',\'' + obj['ROLECODE'] + '\',\'' + obj['AuthorizationMode'] + '\',\'' + rowNo + '\')" id="' + rowNo + 'CREATEBTN")" >' + obj['CREATE'] + '</a></td><td><span class="mobile-before-label">BLOCKED</span> <a href="javascript:void(0)" onclick="CallServerBlock(\'' + obj['USER CODE'] + '\',\'' + obj['CREATE'] + '\',\'' + obj['BLOCK'] + '\',\'' + rowNo + 'BLOCKED\')" id="' + rowNo + 'BLOCKED" >' + obj['BLOCK'] + '</a></td></tr>');
+                        else
+                            trData = $('<tr><td><span class="mobile-before-label">USER ID</span>' + obj['USER CODE'] + '</td><td><span class="mobile-before-label">NAME</span>' + obj['NAME'] + '</td><td><span class="mobile-before-label">ROLE</span>' + obj['ROLENAME'] + '</td><td><span class="mobile-before-label">MOBILE</span>' + obj['CONTACT NO'] + '</td><td><span class="mobile-before-label">EMAIL</span>' + obj['EMAIL ID'] + '</td><td><span class="mobile-before-label">AUTH MODE</span> <select onchange="CallServerAMChange(\'' + obj['CREATE'] + '\',\'' + obj['USER CODE'] + '\',\'' + obj['AuthorizationMode'] + '\',\'' + rowNo + '\')" id="' + rowNo + 'SELECT"><option value="AD" id="ad">AD</option><option value="DB" id="db" selected>DB</option>' + obj['AuthorizationMode'] + '</select></td><td><span class="mobile-before-label">CREATE</span><a href="javascript:void(0)" onclick="CreateUserAjax(\'' + obj['CREATE'] + '\',\'' + obj['USER CODE'] + '\',\'\',\'' + obj['ADDRESS'] + '\',\'' + obj['CONTACT NO'] + '\',\'' + obj['EMAIL ID'] + '\',\'' + obj['USERTYPE'] + '\',\'' + obj['ROLECODE'] + '\',\'' + obj['AuthorizationMode'] + '\',\'' + rowNo + '\')" id="' + rowNo + 'CREATEBTN")" >' + obj['CREATE'] + '</a></td><td><span class="mobile-before-label">BLOCKED</span> <a href="javascript:void(0)" onclick="CallServerBlock(\'' + obj['USER CODE'] + '\',\'' + obj['CREATE'] + '\',\'' + obj['BLOCK'] + '\',\'' + rowNo + 'BLOCKED\')" id="' + rowNo + 'BLOCKED" >' + obj['BLOCK'] + '</a></td></tr>');
+                        tblStore.append(trData);
+                    })
+                },
+                complete: function () {
+                    $('#tbl').DataTable({
+                        //responsive: true
+                        //, scrollY: 370
+                        // "processing": true,
+
+                        scrollCollapse: true
+         , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+         , "language": {
+             "search": ""
+             , "sLengthMenu": "Display _MENU_ Records"
+             , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+             , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+             //,"processing": true
+             //,"serverSide": true
+         }
+                    });
+                    $('.dataTables_filter input').attr("placeholder", "Search");
+                    $('.dataTables_filter').attr("class", "manage_search"); // New changes add
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                },
+                failure: function (text) {
+                    ShowMessage(text.responseText);
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                },
+                error: function (xhr, ajaxOptions, thrownError, text) {
+                    ShowMessage(text.responseText);
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                }
+
+            });
+        }
+    });
+
+        //new $.fn.dataTable.FixedHeader(table, {
+        //    "alwaysCloneTop": true
+        //});
+   // });
+    //$('.loader_overlay, #loading').hide();
+</script>
+
+@Html.Raw(ViewBag.div)
+@Html.Raw(TempData["msg"])

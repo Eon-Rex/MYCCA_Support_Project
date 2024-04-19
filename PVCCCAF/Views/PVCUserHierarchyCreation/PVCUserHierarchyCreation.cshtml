@@ -1,0 +1,286 @@
+﻿@*@model  CCAF.Models.PVFormViewModel*@
+@{
+    ViewBag.Title = "PVCUserHierarchyCreation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="loader_overlay">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" id="loading" height="250px" width="250px" />
+</div>
+
+<div class="top-title">
+    <h2>User Hierarchy Creation</h2>
+</div>
+<div>
+    <div style="display:none;">
+        <HiddenField ID="SesionLoginID" />
+    </div>
+</div>
+<div class="for-top-border">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="col-lg-5 col-md-2 col-sm-2 col-xs-12 ">
+                    <div class="first_left_side">
+                        <label id="UserCode" style="width:100%">User Code : </label>
+                        <label id="APPROVER_L1_P1" style="padding-top:10px">First Approver Person1 : </label>
+                        <label id="APPROVER_L1_P2" style="padding-top:10px">First Approver Person2 : </label>
+                        <label id="APPROVER_L2_P1" style="padding-top:10px">Second Approver Person1 : </label>
+                        <label id="APPROVER_L2_P2" style="padding-top:10px">Second Approver Person2 : </label>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-3 col-sm-3 col-xs-3 mobileview-col-xs-3">
+                    <div class="first_right_side">
+                        @*@Html.DropDownList("UserId", Enumerable.Empty<SelectListItem>(), new { @id = "UserCode", @class = "searchable", style = "width:250px" })*@
+                        @Html.DropDownList("USERID", ViewBag.UserDropdown as SelectList, new { @id = "USERID", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("APPROVERL1P1", ViewBag.UserDropdown as SelectList, new { @id = "APPROVERL1P1", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("APPROVERL1P2", ViewBag.UserDropdown as SelectList, new { @id = "APPROVERL1P2", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("APPROVERL2P1", ViewBag.UserDropdown as SelectList, new { @id = "APPROVERL2P1", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("APPROVERL2P2", ViewBag.UserDropdown as SelectList, new { @id = "APPROVERL2P2", @class = "searchable", style = "width:250px" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-5 col-md-2 col-sm-2 col-xs-12 ">
+                    <div class="first_left_side">
+                        <label id="APPROVER_L3_P1" style="padding-top:10px">Third Approver Person1 : </label>
+                        <label id="APPROVER_L3_P2" style="padding-top:10px">Third Approver Person2 : </label>
+                        <label id="RELEASE_USER1" style="padding-top:10px">Release First User : </label>
+                        <label id="RELEASE_USER2" style="padding-top:10px">Release Second User : </label>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 col-md-3 col-sm-3 col-xs-3 mobileview-col-xs-3">
+                    <div class="first_right_side">
+                        @Html.DropDownList("APPROVERL3P1", ViewBag.UserDropdown as SelectList, new { @id = "APPROVERL3P1", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("APPROVERL3P2", ViewBag.UserDropdown as SelectList, new { @id = "APPROVERL3P2", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("RELEASEUSER1", ViewBag.UserDropdown as SelectList, new { @id = "RELEASEUSER1", @class = "searchable", style = "width:250px" })
+                        @Html.DropDownList("RELEASEUSER2", ViewBag.UserDropdown as SelectList, new { @id = "RELEASEUSER2", @class = "searchable", style = "width:250px" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div style="align-items:center">
+                <div class="save_button">
+                   
+                    <button class="btnSave_pvc" type="submit" style="width:120px" onclick="SaveUserData()" id="btnsavePVC">Save</button>
+                    <button type="reset" class="save_button" style="width:120px" onclick="fn_ClearAll()">Clear</button>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-zero">
+                <table id="pvhistorytbl" class="table order_table for-center cell-border orderview-mobile">
+                    <thead>
+                        <tr>
+                            <th>User Code</th>
+                            <th>First Approver P1</th>
+                            <th>First Approver P2</th>
+                            <th>Second Approver P1</th>
+                            <th>Second Approver P2</th>
+                            <th>Third Approver P1</th>
+                            <th>Third Approver P2</th>
+                            <th>Release First User</th>
+                            <th>Release Second User</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="tbdyoh"></tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+        </div>
+</div>
+    </div>
+    
+
+<script type="text/javascript">
+    var Addedit = "0";
+    $(GetHierarchyGridDetail());
+
+    function GetHierarchyGridDetail() {
+        $('#tbdyoh').html('');
+        var tblStore = $('#tbdyoh');
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            dataType: 'json',
+            url: '/PVCUserHierarchyCreation/GetHierarchyDetails ',
+            success: function (response) {
+                var Data = JSON.parse(response);
+                $.each(Data, function (index, obj) {
+                    var newRow = '<tr> <td>' + obj.USERID + '</td><td>' + obj.APPROVER_L1_P1 + '</td><td>' + obj.APPROVER_L1_P2 + '</td>';
+                    newRow = newRow + '<td>' + obj.APPROVER_L2_P1 + '</td><td>' + obj.APPROVER_L2_P2 + '</td><td>' + obj.APPROVER_L3_P1 + '</td>';
+                    newRow = newRow + '<td>' + obj.APPROVER_L3_P2 + '</td><td>' + obj.RELEASE_USER1 + '</td><td>' + obj.RELEASE_USER2 + '</td>'
+                    newRow = newRow + '<td><a onclick="BtnEdit(\'' + obj.USERID + '\',\'' + obj.APPROVER_L1_P1 + '\',\'' + obj.APPROVER_L1_P2 + '\',\'' + obj.APPROVER_L2_P1 + '\',\'' + obj.APPROVER_L2_P2 + '\',\'' + obj.APPROVER_L3_P1 + '\',\'' + obj.APPROVER_L3_P2 + '\',\'' + obj.RELEASE_USER1 + '\',\'' + obj.RELEASE_USER2 + '\')";>EDIT</a></tr>';
+                    tblStore.append(newRow);
+                });
+            },
+            complete: function () {
+                $('#tbdyoh').show();
+            },
+            failure: function (text) {
+                ShowMessage(text.responseText);
+            },
+            error: function (text, xhr, ajaxOptions, thrownError) {
+
+                if (xhr.status === 401) {
+                    window.location.href = xhr.Data.LogOnUrl;
+                    return;
+                }
+                //var table = $('#tbdyoh').DataTable();
+                //table.clear().draw();
+                var message;
+                ShowMessage(message);
+            }
+        });
+    }
+
+
+    function fn_ClearAll() {
+        debugger;
+        $('#USERID').prop('disabled', false);
+        $('#USERID').get(0).selectedIndex = 0;
+        $("#USERID").chosen("destroy").chosen();
+
+      
+        $('#APPROVERL1P1').get(0).selectedIndex = 0;
+        $('#APPROVERL1P1').chosen("destroy").chosen();
+        $('#APPROVERL1P2').get(0).selectedIndex = 0;
+        $('#APPROVERL1P2').chosen("destroy").chosen();
+        $('#APPROVERL2P1').get(0).selectedIndex = 0;
+        $('#APPROVERL2P1').chosen("destroy").chosen();
+        $('#APPROVERL2P2').get(0).selectedIndex = 0;
+        $('#APPROVERL2P2').chosen("destroy").chosen();
+        $('#APPROVERL3P1').get(0).selectedIndex = 0;
+        $('#APPROVERL3P1').chosen("destroy").chosen();
+        $('#APPROVERL3P2').get(0).selectedIndex = 0;
+        $('#APPROVERL3P2').chosen("destroy").chosen();
+        $('#RELEASEUSER1').get(0).selectedIndex = 0;
+        $('#RELEASEUSER1').chosen("destroy").chosen();
+        $('#RELEASEUSER2').get(0).selectedIndex = 0;
+        $('#RELEASEUSER2').chosen("destroy").chosen();
+        Addedit = "0";
+    }
+    function BtnEdit(USERID, APPROVER1P1, APPROVER1P2, APPROVER2P1, APPROVER2P2, APPROVER3P1, APPROVER3P2, RELEASEUSER1, RELEASEUSER2) {
+        Addedit = "1";
+        $('#USERID').prop('disabled', true);
+        $('#USERID').attr('enabled', 'true').chosen("destroy");
+        $('#APPROVERL1P1').attr('enabled', 'true').chosen("destroy");
+        $('#APPROVERL1P2').attr('enabled', 'true').chosen("destroy");
+        $('#APPROVERL2P1').attr('enabled', 'true').chosen("destroy");
+        $('#APPROVERL2P2').attr('enabled', 'true').chosen("destroy");
+        $('#APPROVERL3P1').attr('enabled', 'true').chosen("destroy");
+        $('#APPROVERL3P2').attr('enabled', 'true').chosen("destroy");
+        $('#RELEASEUSER1').attr('enabled', 'true').chosen("destroy");
+        $('#RELEASEUSER2').attr('enabled', 'true').chosen("destroy");
+
+
+        $('#USERID').val(USERID);
+        $('#USERID').chosen();
+        $('#APPROVERL1P1').val(APPROVER1P1);
+        $('#APPROVERL1P1').chosen();
+        $('#APPROVERL1P2').val(APPROVER1P2);
+        $('#APPROVERL1P2').chosen();
+        $('#APPROVERL2P1').val(APPROVER2P1);
+        $('#APPROVERL2P1').chosen();
+        $('#APPROVERL2P2').val(APPROVER2P2);
+        $('#APPROVERL2P2').chosen();
+        $('#APPROVERL3P1').val(APPROVER3P1);
+        $('#APPROVERL3P1').chosen();
+        $('#APPROVERL3P2').val(APPROVER3P2);
+        $('#APPROVERL3P2').chosen();
+        $('#RELEASEUSER1').val(RELEASEUSER1);
+        $('#RELEASEUSER1').chosen();
+        $('#RELEASEUSER2').val(RELEASEUSER2);
+        $('#RELEASEUSER2').chosen();
+    }
+
+    function SaveUserData() {
+        var USERID = $('#USERID').val();
+        var APPROVERL1P1 = $('#APPROVERL1P1').val();
+        var APPROVERL1P2 = $('#APPROVERL1P2').val();
+        var APPROVERL2P1 = $('#APPROVERL2P1').val();
+        var APPROVERL2P2 = $('#APPROVERL2P2').val();
+        var APPROVERL3P1 = $('#APPROVERL3P1').val();
+        var APPROVERL3P2 = $('#APPROVERL3P2').val();
+        var RELEASEUSER1 = $('#RELEASEUSER1').val();
+        var RELEASEUSER2 = $('#RELEASEUSER2').val();
+        
+        if (USERID == "") {
+            ShowMessage('Please Select the User Code First');
+            return false;
+        }       
+        else if (APPROVER_L2_P1 == "" || APPROVER_L2_P2 == "") {
+            ShowMessage('Please Select Atleast One Second Approver First');
+            return false;
+        }
+        if (APPROVER_L2_P1 == APPROVER_L2_P2) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+        else if (RELEASE_USER1 == "" || RELEASE_USER2 == "") {
+            ShowMessage('Please Select Atleast One Release User First');
+            return false;
+        }
+        if (RELEASEUSER1 == RELEASEUSER2) {
+            ShowMessage('Please Select Diffrent Release User');
+            return false;
+        }
+        if (USERID == (APPROVERL1P1 || APPROVERL1P2 || APPROVERL2P1 || APPROVERL2P2 || APPROVERL3P1 || APPROVERL3P2)) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+        if (APPROVERL1P1 == (APPROVERL1P2 || APPROVERL2P1 || APPROVERL2P2 || APPROVERL3P1 || APPROVERL3P2)) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+        if (APPROVERL1P2 == (APPROVERL2P1 || APPROVERL2P2 || APPROVERL3P1 || APPROVERL3P2)) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+        if (APPROVERL2P1 == (APPROVERL2P2 || APPROVERL3P1 || APPROVERL3P2)) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+        if (APPROVERL2P2 == (APPROVERL3P1 || APPROVERL3P2)) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+        if (APPROVERL3P1 == APPROVERL3P2) {
+            ShowMessage('Please Select Diffrent Approver User');
+            return false;
+        }
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PVCUserHierarchyCreation/SaveUserDetails?USERID=' + USERID + '&APPROVERL1P1=' + APPROVERL1P1 + '&APPROVERL1P2=' + APPROVERL1P2 + '&APPROVERL2P1=' + APPROVERL2P1 + '&APPROVERL2P2=' + APPROVERL2P2 + '&APPROVERL3P1=' + APPROVERL3P1 + '&APPROVERL3P2=' + APPROVERL3P2 + '&RELEASEUSER1=' + RELEASEUSER1 + '&RELEASEUSER2=' + RELEASEUSER2 + '&Addedit=' + Addedit + ' ',
+                success: function (responsedata) {
+                    debugger;
+                    if (responsedata.success) {
+
+                        fn_ClearAll();
+                        GetHierarchyGridDetail();
+                        ShowMessage(responsedata.responseText);
+                        Addedit = "0";
+                    }
+
+                    else {
+                        ShowMessage(responsedata.responseText);
+                    }
+
+                }
+            });
+            
+    }
+
+
+</script>
+

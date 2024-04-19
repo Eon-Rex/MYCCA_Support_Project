@@ -1,0 +1,976 @@
+﻿
+
+@model PVCCCAF.Models.PVFormViewModel
+@using PVCCCAF.Models;
+@{
+    ViewBag.Title = "PVCDataView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isdatecheck = false;
+    string custapplicable = Model.PVHeader.CUSTAPPLICABLETYPEID.ToString();
+    string selectionName = Model.PVHeader.AccountSelection.ToString();
+    string selectionid = Model.PVHeader.ACCOUNTSELECTIONID.ToString();
+    string Status = Model.PVHeader.HeaderStatus.ToString();
+}
+<style type="text/css">
+    .first_right_side input {
+        width: 110% !important;
+    }
+
+    .first_left_side {
+        margin-top: 13px;
+    }
+
+    .first_right_side {
+        margin-top: 13px;
+    }
+
+    .table.dataTable.no-footer {
+        border-bottom: 1px solid #e51635;
+        min-height: 0px;
+        overflow-y: scroll;
+    }
+
+    .table.pvcAccountSelection tr th {
+        text-align: left;
+    }
+
+    .table.tblpvcCustDetails tr th {
+        text-align: left;
+    }
+
+    .table.pvcItemSelection tr th {
+        text-align: left;
+    }
+
+    .table.tblpvcitemDetails tr th {
+        text-align: left;
+    }
+
+
+    .table.pvcAccountSelection tr td {
+        text-align: left;
+    }
+
+    .table.tblpvcCustDetails tr td {
+        text-align: left;
+    }
+
+    .table.pvcItemSelection tr td {
+        text-align: left;
+    }
+
+    .table.tblpvcitemDetails tr td {
+        text-align: left;
+    }
+
+    .table.order_table tr td:last-child {
+        text-align: left;
+    }
+
+    .btnSave_selection {
+        background: #e51635;
+        color: #fff;
+        margin-right: 20px;
+        padding: 3px 16px 3px 16px;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        font-size: 13px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        float: right;
+        text-align: right;
+        padding-top: 0.25em;
+        font-size: 13px;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        clear: both;
+        float: left;
+        padding-top: 0.755em;
+        font-size: 13px;
+    }
+
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+        font-size: 25px;
+    }
+
+    .Selection-Account {
+        background: rgba(0,0,0,0.9);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 9;
+        display: none;
+    }
+
+    .Selection-AccountPopup {
+        background: #f9f9f9;
+        width: 1000px;
+        height: 550px;
+        text-align: center;
+        border-radius: 10px;
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5000;
+    }
+
+    .Selection-GroupPopup {
+        background: #f9f9f9;
+        width: 650px;
+        height: 300px;
+        text-align: center;
+        border-radius: 10px;
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5000;
+    }
+
+    .btn-btnPopup {
+        background: #e51635;
+        color: #fff;
+        padding: 3px 16px 3px 16px;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        font-size: 13px;
+    }
+
+    .closepopup {
+        float: right;
+        width: 22px;
+        cursor: pointer;
+    }
+
+    table.table.order_table.order_table-right2 tr th:nth-child(8) {
+        text-align: left;
+    }
+
+    .upload-image {
+        width: 28px;
+        margin-left: 7px;
+        margin-top: 3px
+    }
+
+    .wrapperbox {
+        background: #fff;
+        float: left;
+        width: 100%;
+        position: relative;
+    }
+
+    .for_PVCNumSeq {
+        font-size: 15px;
+        color: #e51635;
+        font-family: 'Montserrat', sans-serif;
+        float: right;
+        margin-right: 10px;
+    }
+
+    .btnSave_pvc {
+        background: #e51635;
+        color: #fff;
+        margin-right: 20px;
+        padding: 3px 16px 3px 16px;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        float: right;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        font-size: 13px;
+    }
+
+    .for_AmountSign {
+        color: #e51635;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .view-catalog-PVC {
+        float: left;
+        margin-top: 8px;
+        margin-left: 8px;
+    }
+
+    /*    .table.order_table tr td:last-child {
+        text-align: center !important;
+    }*/
+
+    .for_PVCNumSeq {
+        font-size: 15px;
+        color: #e51635;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .Actionbutton {
+        background: #fff;
+        color: #e51635;
+        display: inline-block;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        -webkit-transition: all 0.4s ease-in-out 0s;
+        -moz-transition: all 0.4s ease-in-out 0s;
+        -o-transition: all 0.4s ease-in-out 0s;
+        outline: none;
+        font-size: 13px;
+        border: 1px solid transparent;
+    }
+
+    .btnSave_RequestChange {
+        background: #e51635;
+        color: #fff;
+        margin-top: 20px;
+        padding: 3px 16px 3px 16px;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        float: right;
+        border: 1px solid transparent;
+        transition: all 0.4s ease-in-out 0s;
+        font-size: 13px;
+    }
+</style>
+<form method="POST" action="/PriceVariance/PriceVariance">
+    <input value="@Model.PVHeader.PVCNO" name="PVCNO" type="hidden" />
+    <input value="@Model.PVHeader.HeaderStatus" name="Pvstatus" type="hidden" />
+    <input value="true" name="iscopy" type="hidden" />
+</form>
+
+<div class="Selection-Account" id="SelectionAccountPopup">
+    <div class="Selection-AccountPopup">
+
+        <img src="~/AcxiomDesign/images/close_red.png" class="closepopup" onclick="closeSelectionAccount()" title="Close">
+
+        <div style="margin:11px" class="col-lg-11 col-md-1 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4">
+            <div class="row">
+                <button class="btn-btnPopup" style="margin-left: 20px; margin-bottom: 10px;" id="btnApplicants" type="button" accesskey="A" onclick="OpenApplicantsPopup()">Applicants</button>
+            </div>
+
+        </div>
+
+
+        <table id="pvcAccountSelection" style="width: 50%; margin-left: 15px" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table pvcAccountSelection">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="chkAccountSelection"></th>
+                    <th>Account Selection</th>
+                    <th>Account Name</th>
+                </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+<div class="Selection-Account" id="CustDetailsPopup">
+    <div class="Selection-AccountPopup">
+
+        <img src="~/AcxiomDesign/images/close_red.png" class="closepopup" onclick="closeApplicantsPopup()" title="Close">
+
+        <table id="tblpvcCustDetails" style="width: 60%; margin-left: 15px" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table tblpvcCustDetails">
+            <thead>
+                <tr>
+                    <th>Customer Account</th>
+                    <th>Customer Name</th>
+                </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!-----Item Selection-->
+<div class="Selection-Account" id="SelectionItemPopup">
+    <div class="Selection-AccountPopup">
+
+        <img src="~/AcxiomDesign/images/close_red.png" class="closepopup" onclick="closeSelectionItem()" title="Close">
+        <div style="margin:11px" class="col-lg-11 col-md-1 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4">
+            <div class="row">
+                <button class="btn-btnPopup" style="margin-left: 20px; margin-bottom: 10px;" id="btnitemApplicants" type="button" accesskey="A" onclick="OpenItemsDetailsPopup()">Items</button>
+                <span id="ErrorItemMsg" style="color: red ;padding: 5px 22px 0px"></span>
+            </div>
+
+        </div>
+
+
+        <table id="pvcItemSelection" style="width:70%; margin-left: 15px" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table pvcItemSelection">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="chkitemSelection"></th>
+                    <th>Item Selection</th>
+                    <th>Item Name</th>
+                </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+<div class="Selection-Account" id="itemDetailsPopup">
+    <div class="Selection-AccountPopup">
+
+        <img src="~/AcxiomDesign/images/close_red.png" class="closepopup" onclick="closeItemsDetailsPopup()" title="Close">
+
+        <div style="margin:11px" class="col-lg-11 col-md-1 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4">
+            <div class="row">
+
+                <span id="ErroritemDetailsMsg" style="color: red ;padding: 5px 22px 0px"></span>
+            </div>
+        </div>
+
+        <table id="tblpvcitemDetails" style="width: 60%; margin-left: 15px" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table tblpvcitemDetails">
+            <thead>
+                <tr>
+                    <th>Item Number</th>
+                    <th>Product Name</th>
+                </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-----end-->
+
+
+
+
+<div class="loader_overlay">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" id="loading" height="250px" width="250px" />
+</div>
+
+<div class="wrapperbox">
+    <div class="top-title">
+        <h2>Price Approval Data View</h2>
+
+        <div style="margin-bottom:29px">
+            @if (Model.PVHeader.ShowCopyButton == true && (Model.PVHeader.HeaderStatus == 2 || Model.PVHeader.HeaderStatus == 4 || Model.PVHeader.HeaderStatus == 6 || Model.PVHeader.HeaderStatus == 8))
+            {
+                <button id="btnCopyPVC" class="btnSave_pvc" type="button" onclick="CopyPVCData()">Copy to</button>
+            }
+            <span id="Pvnumber" class="for_PVCNumSeq">@Model.PVHeader.PVCNO</span><span class="for_PVCNumSeq"> PV No :-</span>
+
+        </div>
+
+    </div>
+    <div class="for-top-border">
+        <div class="container" style="width:1315px">
+            <div class="row">
+                <div style="width: 38%;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4">
+                        <div class="first_left_side mobileview-col-xs-6">
+                            <p>@Html.LabelFor(m => m.PVHeader.Entity)</p>
+                            <p>@Html.LabelFor(m => m.PVHeader.CustomerApplicable)</p>
+                            <p>@Html.LabelFor(m => m.PVHeader.AccountSelection)</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-8 col-md-8 col-sm-3 col-xs-3 mobileview-col-xs-3">
+                        <div class="first_left_side for-float-right">
+                            @Html.TextBoxFor(m => m.PVHeader.Entity, new { style = "width:250px", @readonly = "true" })
+                            @Html.TextBoxFor(m => m.PVHeader.CustomerApplicable, new { style = "width:250px", @id = "customerapplicable", @readonly = "true" })
+                            @Html.TextBoxFor(m => m.PVHeader.AccountSelection, new { style = "width:250px", @readonly = "true" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 mobileview-col-xs-12" style="margin-right:55px">
+                    <div class="col-lg-3 col-md-1 col-sm-1 col-xs-8 padding-zero mobileview-col-xs-4">
+                        <div class="first_right_side">
+                            <p>@Html.LabelFor(m => m.PVHeader.Branch)</p>
+                            <p>@Html.Label("Start Date")</p>
+                            <p>@Html.Label("End Date")</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-8 col-md-9 col-sm-2 col-xs-3 mobileview-col-xs-3">
+                        <div class="first_right_side">
+                            @Html.TextBoxFor(m => m.PVHeader.Branch, new { style = "width:170px; padding-bottom: 8px;", @readonly = "true" })
+                            @if (Model.PVLine.Count > 0)
+                            {
+                                isdatecheck = true;
+                                @Html.TextBoxFor(m => Model.PVLine[0].StartDate, new { @class = "flatpickr flatpickr-input active", @disabled = "disabled", @id = "StartDate", style = "width:170px;" })
+                                @Html.TextBoxFor(m => Model.PVLine[0].EndDate, new { @class = "flatpickr flatpickr-input active", @disabled = "disabled", @id = "EndDate", style = "width:170px;" })
+                            }
+                            else
+                            {
+                                @Html.TextBox("StartDate", new { @class = "flatpickr flatpickr-input active", @disabled = "disabled", @id = "StartDate", style = "width:170px;" })
+                                @Html.TextBox("EndDate", new { @class = "flatpickr flatpickr-input active", @disabled = "disabled", @id = "EndDate", style = "width:170px;" })
+                            }
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 mobileview-col-xs-12">
+                    <div class="col-md-4 col-md-1 col-sm-1 col-xs-8 padding-zero mobileview-col-xs-4">
+                        <div class="first_right_side">
+                            <p>@Html.LabelFor(m => m.PVHeader.PriceTier)</p>
+                            <p>@Html.LabelFor(m => m.PVHeader.Description)</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 col-md-8 col-sm-8col-xs-8 padding-zero mobileview-col-xs-4">
+                        <div class="first_right_side">
+                            @Html.TextBoxFor(m => m.PVHeader.PriceTier, new { style = "width:250px; padding-bottom: 8px;", @readonly = "true" })
+                            @Html.TextAreaFor(m => m.PVHeader.Description, new
+                       {
+                           @readonly = "true",
+                           @placeholder = "Free Text (Max 30 Characters)",
+                           @rows = "2",
+                           @cols = "25",
+                           @maxlength = "30",
+                           style = "width:228px;height: 54px;"
+                       })
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="row col">
+                <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4" style="margin-bottom:10px">
+                    <button class="btnSave_pvc btn" type="button" onclick="OpenSelectionAccount()" id="btnSelectionAccount">Selection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="left-side-bar for-order-margin">
+    <table id="PvcLinetbl" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="chkBoxSelectAll"></th>
+                <th>No</th>
+                <th>Item Type</th>
+                <th>Item Selection</th>
+                <th>Item Name</th>
+                <th>Current Price (VEP)</th>
+                <th>New Price (VEP)</th>
+                <th>New Price (VIP)</th>
+                <th>Discount</th>
+                <th>%Discount</th>
+                <th>Expected Volume (PC)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (PVFLine d in Model.PVLine)
+                {
+                    <tr>
+
+                        <td></td>
+                        <td>@d.No</td>
+                        <td>@d.ItemTypeDesc</td>
+                        <td>@d.ItemSelection</td>
+                        <td>@d.ItemName</td>
+                        <td><span class="for_AmountSign">$ </span>@d.CurrentPriceVEP</td>
+                        <td><span class="for_AmountSign">$ </span>@d.NewPriceVEP</td>
+                        <td><span class="for_AmountSign">$ </span>@d.NewPriceVIP</td>
+                        <td><span class="for_AmountSign">$ </span>@d.Discount</td>
+                        <td>@d.DiscountPer<span> % </span></td>
+                        <td>@d.ExpectedVolumn</td>
+                    </tr>
+
+                }
+            }
+
+
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+
+</div>
+<br>
+
+<div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4" style="margin-bottom:10px">
+    <button class="btnSave_selection btn" type="button" onclick="OpenSelectionItem()" id="btnSelectionItem">Selection</button>
+</div>
+<br>
+<br>
+<div class="for-top-border">
+    <div class="col">
+        <div class="row">
+            <div style="padding-left: 15px;">
+                <div class="first_left_sidecomment mobileview-col-xs-6">
+                    <p style="font-weight: bold; font-size: 13px;">Comments</p>
+                    <p>@Html.Label("1st Approver :")</p>
+                    <p>@Html.Label("2nd Approver :")</p>
+                    <p>@Html.Label("3rd Approver :")</p>
+                </div>
+            </div>
+
+            <div class="col-xs-5 col-md-3 col-sm-3 col-xs-3 mobileview-col-xs-3">
+                <div class="first_left_sidecomment for-float-right">
+                    <br>
+                    @Html.TextBoxFor(m => m.PVHeader.firstApproverComment, new { style = "width:250px;height:28px;", @readonly = "true" })
+                    @Html.TextBoxFor(m => m.PVHeader.secondApproverComment, new { style = "width:250px;height:24px;", @readonly = "true" })
+                    @Html.TextBoxFor(m => m.PVHeader.thirdApprovercomment, new { style = "width:250px;height:20px;", @readonly = "true" })
+                </div>
+            </div>
+            <div class="col-xs-3 col-md-3 col-sm-3 col-xs-3 mobileview-col-xs-3">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="for-bg-color">
+    <div class="row" style="padding: 8px;width:99%">
+        <div class="col-lg-9 col-md-4 col-sm-4 col-xs-16">
+            <div class="middel-center">
+                <p>Attachment :</p>
+            </div>
+            <div class="right-middel">
+                @{
+                    for (int i = 0; i < Model.PVHeader.PvImages.Count(); i++)
+                    {
+                        string ext = Path.GetExtension(Model.PVHeader.PvImages[i].ImageUrl);
+                        if (ext.ToUpper() == ".PDF")
+                        {
+                            <a class="img-show" href="@Model.PVHeader.PvImages[i].ImageUrl" value="@Model.PVHeader.PvImages[i].ImageUrl" target="_blank">
+                                <img class="upload-image" src="~/AcxiomDesign/images/pdf image.jpg" />
+                            </a>
+
+                        }
+                        else if (ext.ToUpper() == ".DOCX")
+                        {
+                            <a class="img-show" href="@Model.PVHeader.PvImages[i].ImageUrl" value="@Model.PVHeader.PvImages[i].ImageUrl" target="_blank">
+
+                                <img class="upload-image" src="~/AcxiomDesign/images/word.jpg" />
+                            </a>
+
+                        }
+                        else if (ext.ToUpper() == ".JPG" || ext.ToUpper() == ".JPEG" || ext.ToUpper() == ".PNG")
+                        {
+                            <a class="img-show" href="@Model.PVHeader.PvImages[i].ImageUrl" value="@Model.PVHeader.PvImages[i].ImageUrl" target="_blank">
+                                <img class="upload-image" src="~/AcxiomDesign/images/jpg-image.jpg" />
+                            </a>
+
+                        }
+                        else if (ext.ToUpper() == ".XLSX")
+                        {
+                            <a class="img-show" href="@Model.PVHeader.PvImages[i].ImageUrl" value="@Model.PVHeader.PvImages[i].ImageUrl" target="_blank">
+
+                                <img class="upload-image" src="~/AcxiomDesign/images/Excel image.jpg" />
+                            </a>
+
+                        }
+
+                    }
+                }
+            </div>
+
+        </div>
+
+        @if (Model.PVHeader.HeaderStatus == 8 && Model.PVHeader.ShowExtendDateButton == true)
+        {
+
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mobileview-col-xs-6 form-group-mobile">
+
+                <div class="right-middel">
+                    <button style="margin-left: 20px; margin-bottom: 5px;" type="button" accesskey="A" id="btnUpdateReq" onclick="RequestforHeaderchange('@Model.PVHeader.ENTITYID', '@Model.PVHeader.PVCNO');">Extend date</button>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br>
+
+<script>
+    function OpenSelectionAccount() {
+
+        $('#SelectionAccountPopup').css({ display: "block" });
+        $('#pvcAccountSelection tbody').empty();
+        BindAccountSelectiontable();
+
+    }
+
+    function closeSelectionAccount() {
+
+        $('#ErrorMsg').text('');
+        $('#SelectionAccountPopup').css({ display: "none" });
+        $('#pvcAccountSelection tbody').empty();
+    }
+
+    function OpenApplicantsPopup() {
+
+        $('#ErrorMsg').text('');
+        var CustApplicable = '@custapplicable';
+                var entityid = '@Model.PVHeader.ENTITYID.ToString()'
+        var AccountSelection = $("#pvcAccountSelection tbody tr:has(input:checked)").map(function () {
+            var $tr = $(this);
+            var ItemCode = $tr.find("td:nth-child(2)").text();
+            return ItemCode;
+        }).toArray();
+        if (AccountSelection.length > 1) {
+            $('#ErrorMsg').text('Please Select Only One CheckBox to Show Applicants');
+            return false;
+        }
+        var RowCount = $("#pvcAccountSelection tbody").find("tr").length;
+        if (RowCount == 1 && AccountSelection.length == 0) {
+            AccountSelection = $("#pvcAccountSelection tbody tr:has(input:unchecked)").map(function () {
+                var $tr = $(this);
+                var ItemCode = $tr.find("td:nth-child(2)").text();
+                return ItemCode;
+            }).toArray();
+        }
+        $('#SelectionAccountPopup').css({ display: "none" });
+        $('#tblpvcCustDetails tbody').empty();
+
+        var table = $('#tblpvcCustDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+        $('.loader_overlay, #loading').show();
+
+        $.ajax({
+            type: "POST",
+            crossDomain: true,
+            dataType: 'json',
+            url: '/PriceVariance/GetAccountlinkedcustomer?AccountSelectionID=' + AccountSelection + '&CustomerApplicable=' + CustApplicable + '&Entityid=' + entityid + '',
+            success: function (responsedata) {
+
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+                if (responsedata.success) {
+                    $('#CustDetailsPopup').css({ display: "block" });
+                    $('#tblpvcCustDetails tbody').empty();
+                    var data = JSON.parse(responsedata.data);
+                    $.each(data, function (index, obj)
+                    {
+                        var newrow = '<tr><td>' + obj.AccountNum + '</td><td>' + obj.Name + ' </td></tr>'
+                        $('#tblpvcCustDetails tbody').append(newrow);
+
+                    });
+
+                }
+                else {
+                    ShowMessage(responsedata.responseText);
+                }
+
+            },
+            complete: function () {
+                $('#tblpvcCustDetails').DataTable({
+                    scrollCollapse: true
+                    , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                    , "language": {
+                        "search": ""
+                        , "sLengthMenu": "Display _MENU_ Records"
+                        , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                        , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                    }
+                });
+                $('#tblpvcCustDetails_filter').css({ display: "none" });
+                $('#tblpvcCustDetails_length').css({ display: "none" });
+
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+            }
+        });
+
+
+
+
+
+    }
+
+    function closeApplicantsPopup() {
+
+        $('#ErrorMsg').text('');
+        $('#CustDetailsPopup').css({ display: "none" });
+        $('#SelectionAccountPopup').css({ display: "block" });
+    }
+
+    function BindAccountSelectiontable()
+    {
+
+        $('#pvcAccountSelection tbody').empty();
+        var AccountSelection = '@selectionid';
+        var AccountSelectionarray = AccountSelection.split(',');
+
+        var AccountSelectiondesc = '@selectionName';
+        var AccountSelectiondescarray = AccountSelectiondesc.split(',');
+
+
+        if (AccountSelectionarray != null && AccountSelectiondescarray != null)
+        {
+            for (var i = 0; i < AccountSelectionarray.length; i++)
+            {
+
+                var accountname = AccountSelectiondescarray[i].split('-');
+                var newrow = '<tr><td><input type ="checkbox" class="singleAccountSelection" id = "chkAccountSelectionfoot"></input></td><td>' + AccountSelectionarray[i] + '</td><td>' + accountname[1] + ' </td></tr>'
+                $('#pvcAccountSelection tbody').append(newrow);
+            }
+
+
+        }
+
+
+    }
+
+    function CustApplicantschkbox() {
+
+        var $selectAccountAll = $('#chkCustAccountSelection'); // main checkbox customer account linking inside table thead
+
+        $selectAccountAll.on('click', function () {
+
+            $('.singleCustAccountSelection').prop('checked', this.checked);
+        });
+    }
+
+    function OpenSelectionItem() {
+        $('#ErrorItemMsg').text('');
+        $('#SelectionItemPopup').css({ display: "block" });
+        $('#pvcItemSelection tbody').empty();
+        var itemtype = $("#PvcLinetbl tbody tr").map(function () {
+            var $tr = $(this);
+            var ItemCode = $tr.find("td:nth-child(3)").text();
+            return ItemCode;
+        }).toArray();
+        var itemGroupid = $("#PvcLinetbl tbody tr").map(function () {
+            var $tr = $(this);
+            var ItemCode = $tr.find("td:nth-child(4)").text();
+            return ItemCode;
+        }).toArray();
+
+        var itemGroupname = $("#PvcLinetbl tbody tr").map(function () {
+            var $tr = $(this);
+            var ItemCode = $tr.find("td:nth-child(5)").text();
+            return ItemCode;
+        }).toArray();
+
+        bindItemGroup(itemtype, itemGroupid, itemGroupname);
+
+    }
+
+    function closeSelectionItem() {
+
+        $('#ErrorMsg').text('');
+        $('#SelectionItemPopup').css({ display: "none" });
+        $('#pvcItemSelection tbody').empty();
+    }
+
+    function bindItemGroup(itemtype, itemGroupid, itemGroupname) {
+
+        for (var i = 0; i < itemtype.length; i++) {
+            if (itemtype[i] == "ITEM GROUP") {
+                var newrow = '<tr><td><input type ="checkbox" class="singleitemSelection" id = "chkitemSelectionfoot"></input></td><td>' + itemGroupid[i] + '</td><td>' + itemGroupname[i] + ' </td></tr>'
+                $('#pvcItemSelection tbody').append(newrow);
+            }
+        }
+    }
+
+    function OpenItemsDetailsPopup() {
+
+        $('#ErroritemDetailsMsg').text('');
+        var entityid = '@Model.PVHeader.ENTITYID';
+        var ItemSelection = $("#pvcItemSelection tbody tr:has(input:checked)").map(function () {
+            var $tr = $(this);
+            var ItemCode = $tr.find("td:nth-child(2)").text();
+            return ItemCode;
+        }).toArray();
+        if (ItemSelection.length > 1) {
+            $('#ErrorItemMsg').text('Please Select Only One CheckBox to Show Items');
+            return false;
+        }
+        var RowCount = $("#pvcItemSelection tbody").find("tr").length;
+        if (RowCount == 1 && ItemSelection.length == 0) {
+            ItemSelection = $("#pvcItemSelection tbody tr:has(input:unchecked)").map(function () {
+                var $tr = $(this);
+                var ItemCode = $tr.find("td:nth-child(2)").text();
+                return ItemCode;
+            }).toArray();
+        }
+        $('#SelectionItemPopup').css({ display: "none" });
+        $('#tblpvcitemDetails tbody').empty();
+
+        var table = $('#tblpvcitemDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+        $('.loader_overlay, #loading').show();
+
+        $.ajax({
+            type: "POST",
+            crossDomain: true,
+            dataType: 'json',
+            url: '/PriceVariance/GetGrouplinkedItems?ITEMGROUPID=' + ItemSelection + '&Dataareaid=' + entityid + '',
+            success: function (responsedata) {
+
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+                if (responsedata.success) {
+                    $('#itemDetailsPopup').css({ display: "block" });
+                    $('#tblpvcitemDetails tbody').empty();
+                    $('#tblpvcitemDetails thead').empty();
+                    var data = JSON.parse(responsedata.data);
+
+                    var newrow = '<tr><th>Item Number</th>';
+                    newrow = newrow + '<th>Product Name</th></tr>';
+                    $('#tblpvcitemDetails thead').append(newrow);
+
+                    $.each(data, function (index, obj) {
+                        var newrow = '<tr><td>' + obj.ItemId + '</td><td>' + obj.Name + ' </td></tr>'
+                        $('#tblpvcitemDetails tbody').append(newrow);
+
+                    });
+
+                }
+                else {
+                    ShowMessage(responsedata.responseText);
+                }
+
+            },
+            complete: function () {
+                $('#tblpvcitemDetails').DataTable({
+                    scrollCollapse: true
+                    , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                    , "language": {
+                        "search": ""
+                        , "sLengthMenu": "Display _MENU_ Records"
+                        , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                        , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                    }
+                });
+                $('#tblpvcitemDetails_filter').css({ display: "none" });
+                $('#tblpvcitemDetails_length').css({ display: "none" });
+
+                $('#loading').hide();
+                $('.loader_overlay').fadeOut();
+            }
+        });
+
+
+
+
+
+    }
+
+    function closeItemsDetailsPopup() {
+
+        $('#ErrorItemMsg').text('');
+        $('#itemDetailsPopup').css({ display: "none" });
+        $('#SelectionItemPopup').css({ display: "block" });
+    }
+
+    function itemdetailschkbox() {
+        var $selectitemdetailsAll = $('#chkitemdetailsSelection'); // main checkbox inside Account Selection table thead
+
+        $selectitemdetailsAll.on('click', function () {
+
+            $('.singleitemdetailsSelection').prop('checked', this.checked);
+        });
+    }
+
+
+    function RequestforHeaderchange(entityId, pvcnumber) {
+        if (entityId == "") {
+            ShowMessage('Please Select the Entity');
+            return false;
+        }
+        else if (pvcnumber == "") {
+            ShowMessage('PV No is blank!Please refresh the window');
+            return false;
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PriceVariance/PVCApproverHeaderAction?PVCNUM=' + pvcnumber + '&Entityid=' + entityId + '&ActionType=4&Status=0&Approvercmmt=""',
+                success: function (responsedata) {
+
+                    if (responsedata.success)
+                    {
+
+                        var jsondata = JSON.parse(responsedata.data);
+                        //ShowMessage("Request for change raised successfully")
+                     //   ShowMessage("Go to Draft Page to Extend Date")
+                            setInterval(
+                                function () {
+                                    var url = '/PriceVariance/DraftAndChangeRequest';
+                                    window.location.href = url;
+                                },
+                                2000
+                            );
+                    }
+                    else
+                    {
+                        ShowMessage(jsondata.data);
+                    }
+
+                }
+            });
+
+        }
+    }
+
+    function CopyPVCData()
+    {
+        jQuery('form').submit();
+
+    }
+       $(document).ready(function ()
+    {
+
+        var datacheck ='@isdatecheck'
+        if (datacheck == "False")
+        {
+            var check_in = flatpickr("#StartDate", { dateFormat: "d-M-Y", minDate: new Date(), defaultDate: new Date() });
+            var check_out = flatpickr("#EndDate", { dateFormat: "d-M-Y", minDate: new Date(), defaultDate: new Date() });
+        }
+        else
+        {
+
+         var check_in = flatpickr("#StartDate", { dateFormat: "d-M-Y", minDate: new Date()  });
+         var check_out = flatpickr("#EndDate", { dateFormat: "d-M-Y", minDate: new Date() });
+
+        }
+
+
+    });
+</script>
+

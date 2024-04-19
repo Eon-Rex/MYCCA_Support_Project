@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "Draft CR Mode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    input[type="search"] {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+        float: right;
+        text-align: right;
+        padding-top: 0.25em;
+        font-size: 13px;
+    }
+    .dataTables_wrapper .dataTables_info {
+        clear: both;
+        float: left;
+        padding-top: 0.755em;
+        font-size: 13px;
+    }
+    .for-order-margin {
+        margin-top: -14px;
+    }
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+        font-size: 25px;
+    }
+    /*Sourav 16-03-2022 START*/
+    #myContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    /*Sourav 16-03-2022 START*/
+    </style>
+
+<form method="POST" action="/PriceVariance/PriceVariance">
+    <input id="hdnpvcno" name="PVCNO" type="hidden" />
+    <input id="hdnpvstatus" name="Pvstatus" type="hidden" />
+</form>
+<div class="loader_overlay">
+    <img src="~/AcxiomDesign/images/Loading-red.gif" id="loading" height="250px" width="250px" />
+</div>
+
+    <div class="wrapperbox">
+        <div class="top-title">
+            <h2>Draft And Change Request Form</h2>
+
+        </div>
+        <div class="for-top-border">
+            <div class="col">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-1 col-sm-4 col-xs-4 padding-zero mobileview-col-xs-4">
+                        <div class="first_left_side mobileview-col-xs-6"  style="margin-left: 14px;">
+                            <select id="ddlStatus" class="searchable" style="width:250px" onchange="BindStatusValue()">
+                                <option>Select Type</option>
+                                <option value="0">Status</option>
+                                <option value="1">PV Number</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3 col-md-3 col-sm-3 col-xs-3 mobileview-col-xs-3">
+                        <div class="first_left_side for-float-right">
+                            <select id="ddlStatusValues" class="searchable" style="width:250px" onchange="BinddataGrid()"></select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col" >
+        <div class="left-side-bar for-order-margin" style="width:44%;">
+            <table id="tblDraftCR" class="add-new-class table order_table order_table-right2 for-margin cell-border mobile_view_beforenone responsive-table">
+                <thead>
+                    <tr>
+                        <th>PV Number</th>
+                        <th>Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+
+
+<script>
+    function BindStatusValue() {
+        $('#tblDraftCR tbody').empty();
+        var table = $('#tblDraftCR').DataTable();
+        table.clear().draw();
+        table.destroy();
+        var statusid = $("#ddlStatus").val();
+        if (statusid == 0) {
+            $("#ddlStatusValues").empty();
+            $('#ddlStatusValues').attr('enabled', 'true').chosen("destroy");
+            $('#ddlStatusValues').append($("<option></option>").val("").html("Select an Option"));
+            $('#ddlStatusValues').append($("<option></option>").val(0).html("Draft"));
+            $('#ddlStatusValues').append($("<option></option>").val(10).html("Change Request"));
+            $('#ddlStatusValues').chosen();
+        }
+        else if (statusid == 1) {
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PriceVariance/GetPVCNOStatusWise?TYPE=' + statusid + '',
+                success: function (responsedata) {
+
+                    $("#ddlStatusValues").empty();
+                    $('#ddlStatusValues').attr('enabled', 'true').chosen("destroy");
+                    var data = JSON.parse(responsedata);
+
+                    $('#ddlStatusValues').append($("<option></option>").val('').html('Select an Option'));
+
+                    $.each(data, function (index, obj) {
+
+                        $('#ddlStatusValues').append($("<option></option>").val(obj.PVCNO).html(obj.PVCNO));
+
+                    });
+
+                    $('#ddlStatusValues').chosen();
+
+                }
+            });
+        }
+        else {
+
+            $("#ddlStatusValues").empty();
+            $('#ddlStatusValues').attr('enabled', 'true').chosen("destroy");
+            $('#ddlStatusValues').append($("<option></option>").val("").html("Select an Option"));
+            $('#ddlStatusValues').chosen();
+        }
+
+    }
+
+    function BinddataGrid()
+    {
+        $('#tblDraftCR tbody').empty();
+        var table = $('#tblDraftCR').DataTable();
+        table.clear().draw();
+        table.destroy();
+        var statusid = $("#ddlStatus").val();
+        var statusType = $("#ddlStatusValues").val();
+        if (statusid == 0)//for draft and change request
+        {
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PriceVariance/GetPVCNOStatusWise?TYPE=' + statusType + '',
+                success: function (responsedata) {
+
+                    $('#tblDraftCR tbody').empty();
+                    var jsondata = JSON.parse(responsedata);
+
+                    $.each(jsondata, function (index, obj) {
+                        var newRow = '<tr><td><a href="#" onclick="OpenRecordtoEdit(\'' + obj.PVCNO + '\',\'' + obj.STATUSID + '\')">' + obj.PVCNO + '</a></td><td>' + obj.STATUS + '</td>';
+                        $('#tblDraftCR tbody').append(newRow);
+
+                    });
+
+                },
+                complete: function () {
+                    $('#tblDraftCR').DataTable({
+                        scrollCollapse: true
+                        , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                        , "language": {
+                            "search": ""
+                            , "sLengthMenu": "Display _MENU_ Records"
+                            , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                            , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                        }
+                    });
+                    $('.dataTables_filter input').attr("placeholder", "Search");
+                    $('.dataTables_filter').attr("class", "manage_search"); // New changes add
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                }
+
+            });
+        }
+        else if (statusid == 1) //for PVC No Request
+        {
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: '/PriceVariance/GetPVCNOStatusWise?TYPE=3&PVCNO=' + statusType+'',
+                success: function (responsedata) {
+
+                    $('#tblDraftCR tbody').empty();
+                    var jsondata = JSON.parse(responsedata);
+
+                    $.each(jsondata, function (index, obj) {
+                        var newRow = '<tr><td><a href="#" onclick="OpenRecordtoEdit(\'' + obj.PVCNO + '\',\'' + obj.STATUSID + '\')">' + obj.PVCNO + '</a></td><td>' + obj.STATUS + '</td>';
+                        $('#tblDraftCR tbody').append(newRow);
+
+                    });
+
+                },
+                complete: function () {
+                    $('#tblDraftCR').DataTable({
+                        scrollCollapse: true
+                        , "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                        , "language": {
+                            "search": ""
+                            , "sLengthMenu": "Display _MENU_ Records"
+                            , "info": "Displaying _START_ to _END_ of _TOTAL_ Records"
+                            , "infoEmpty": "Displaying 0 to 0 of 0 Records"
+
+                        }
+                    });
+                    $('.dataTables_filter input').attr("placeholder", "Search");
+                    $('.dataTables_filter').attr("class", "manage_search"); // New changes add
+                    $('#loading').hide();
+                    $('.loader_overlay').fadeOut();
+                }
+
+            });
+        }
+    }
+
+    function OpenRecordtoEdit(pvno, pvstatus)
+    {
+        if  (pvstatus == 0 || pvstatus == 10)
+        {
+            $("#hdnpvcno").val(pvno);
+            $("#hdnpvstatus").val(pvstatus);
+            jQuery('form').submit();
+
+        }
+
+
+    }
+
+</script>

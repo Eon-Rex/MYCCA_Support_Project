@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Dynamics.Ax.Application" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://10.226.17.25:8101/DynamicsAx/Services/ACXWebPortal?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" />
+  <xs:complexType name="AcxWebPortalCustPriceGroupCC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" base="q1:XppObjectBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CustAccount" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DataAreaId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PriceGroup" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AcxWebPortalCustPriceGroupCC" nillable="true" type="tns:AcxWebPortalCustPriceGroupCC" />
+  <xs:complexType name="AcxWebPortalItemPriceGroupCC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" base="q2:XppObjectBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DataAreaId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ItemId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PriceGroup" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AcxWebPortalItemPriceGroupCC" nillable="true" type="tns:AcxWebPortalItemPriceGroupCC" />
+  <xs:complexType name="ACXWebPortalOrderLineCC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" base="q3:XppObjectBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Customer_x0020_code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Delivery_x0020_Message" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Delivery_x0020_Mode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Item_x0020_code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Line_x0020_No" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Order_x0020_type" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Price_x0020_group" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Qty" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Requestor" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="delivery_x0020_date" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="order_x0020_date" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="order_x0020_no" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ACXWebPortalOrderLineCC" nillable="true" type="tns:ACXWebPortalOrderLineCC" />
+  <xs:complexType name="AcxWebPortalPVActSelectionCC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" base="q4:XppObjectBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DataAreaId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GroupId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AcxWebPortalPVActSelectionCC" nillable="true" type="tns:AcxWebPortalPVActSelectionCC" />
+  <xs:complexType name="AcxWebPortalPVExtendedDateUpdCC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" base="q5:XppObjectBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DataAreaId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PVNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ToDate" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AcxWebPortalPVExtendedDateUpdCC" nillable="true" type="tns:AcxWebPortalPVExtendedDateUpdCC" />
+  <xs:complexType name="ACXWebPortalPVLinesCC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q6="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Ax.Xpp" base="q6:XppObjectBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AccountSelection" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Branch" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CurrentPriceVEP" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Customer" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerApplicable" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DataAreaId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Discount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DiscountPer" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ExpectedVolumn" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FromDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ItemSelection" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ItemType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LineNo" type="xs:int" />
+          <xs:element minOccurs="0" name="NewPriceVEP" type="xs:decimal" />
+          <xs:element minOccurs="0" name="NewPriceVIP" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PVNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PriceTier" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ToDate" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ACXWebPortalPVLinesCC" nillable="true" type="tns:ACXWebPortalPVLinesCC" />
+  <xs:complexType name="ArrayOfAcxWebPortalPVActSelectionCC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AcxWebPortalPVActSelectionCC" nillable="true" type="tns:AcxWebPortalPVActSelectionCC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAcxWebPortalPVActSelectionCC" nillable="true" type="tns:ArrayOfAcxWebPortalPVActSelectionCC" />
+  <xs:complexType name="ArrayOfACXWebPortalOrderLineCC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ACXWebPortalOrderLineCC" nillable="true" type="tns:ACXWebPortalOrderLineCC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfACXWebPortalOrderLineCC" nillable="true" type="tns:ArrayOfACXWebPortalOrderLineCC" />
+  <xs:complexType name="ArrayOfACXWebPortalPVLinesCC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ACXWebPortalPVLinesCC" nillable="true" type="tns:ACXWebPortalPVLinesCC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfACXWebPortalPVLinesCC" nillable="true" type="tns:ArrayOfACXWebPortalPVLinesCC" />
+  <xs:complexType name="ArrayOfAcxWebPortalPVExtendedDateUpdCC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AcxWebPortalPVExtendedDateUpdCC" nillable="true" type="tns:AcxWebPortalPVExtendedDateUpdCC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAcxWebPortalPVExtendedDateUpdCC" nillable="true" type="tns:ArrayOfAcxWebPortalPVExtendedDateUpdCC" />
+  <xs:complexType name="ArrayOfAcxWebPortalItemPriceGroupCC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AcxWebPortalItemPriceGroupCC" nillable="true" type="tns:AcxWebPortalItemPriceGroupCC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAcxWebPortalItemPriceGroupCC" nillable="true" type="tns:ArrayOfAcxWebPortalItemPriceGroupCC" />
+  <xs:complexType name="ArrayOfAcxWebPortalCustPriceGroupCC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AcxWebPortalCustPriceGroupCC" nillable="true" type="tns:AcxWebPortalCustPriceGroupCC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAcxWebPortalCustPriceGroupCC" nillable="true" type="tns:ArrayOfAcxWebPortalCustPriceGroupCC" />
+</xs:schema>
